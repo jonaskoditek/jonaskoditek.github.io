@@ -385,6 +385,51 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
                 border: 1px solid var(--border-color); /* Subtle image border */
             }
+
+            .bdd100k-image {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 20px 0;
+            }
+
+            .bdd100k-image img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                border: 1px solid var(--border-color);
+                margin-bottom: 4px;
+            }
+
+            .bdd100k-image figcaption {
+                font-size: 15px;
+                color: var(--secondary-text-color);
+                margin-top: 0;
+                text-align: center;
+            }
+
+            .auto-labeling-pipeline-images {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 24px;
+            }
+
+            .auto-labeling-pipeline-images figure {
+                text-align: center;
+            }
+
+            .auto-labeling-pipeline-images img {
+                width: 100%;
+                max-width: 320px;
+                border-radius: 8px;
+                margin-bottom: 4px;
+            }
+
+            .auto-labeling-pipeline-images figcaption {
+                font-size: 15px;
+                margin-top: 0;
+            }
             
             /* --- CONTACT SECTION STYLING --- */
             #contact {
@@ -758,19 +803,46 @@
             let projectsData = [
                 {
                     id: 'pedestrian-intent',
-                    title: 'Prediction of Pedestrian Intent',
+                    title: 'Autonomous Driving System',
                     category: 'Machine Learning',
                     description: "Predicting the intention of pedestrians to step into a road from a car's front view using deep learning.",
-                    tags: ['ML', 'Deep Learning', 'Computer Vision', 'Python', 'Keras/TF'],
+                    tags: ['ML', 'Deep Learning', 'Computer Vision', 'Python', 'Pytorch'],
                     image: 'images/walker.png',
                     detailContent: `
                         <h4>Core Challenge & Solution</h4>
-                        <p>This research involved training a spatio-temporal deep learning model (LSTMs and CNNs) on the JAAD dataset to achieve state-of-the-art anticipation times for high-risk pedestrian scenarios. The architecture implemented a two-stream network: a visual stream for object detection/tracking, and a temporal stream for motion analysis.</p>
-                        <img src="https://placehold.co/800x400/f75231/ffffff?text=Architecture+Diagram" alt="Model Architecture Diagram">
+                        <p>This research focused on automatically finding moments in which a pedestrian steps into a road by analyzing vehicle dashcam footage and using these data to train a classifier capable of predicting real-time, whether a pedestrian is going to step into the road. This is especially useful in autonmous driving and drive assisting systems that can either take control over the situation and activate breaks or preactivate the breaking system for faster breaking response. </p>
+                        <div class="bdd100k-image">
+                            <img src="images/bdd100k.gif" alt="Model Architecture Diagram">
+                            <figcaption>BDD100K Dataset</figcaption>
+                        </div>
                         <h4>Implementation Details</h4>
-                        <p>The model leverages multi-modal input to fuse contextual and motion features. Key techniques included custom loss functions to penalize early and late predictions equally. This project demonstrates strong skills in production-ready ML engineering.</p>
+                        <p>The project involved the development of two major components. The first was an auto-labelling pipeline aimed at generating autmatically labeled training data. These training data were then used in the second part of the project that involved designing a classifier model and training it using the generated training data.</p>
+                        <h4>Auto-labeling pipeline</h4>
+                        <p>The auto-labeling pipeline leveraged state-of-the-art object detection model to capture pedestrians, object tracking model to track the pedestrians across consecutive frames, and semantic segmentation model to segment the road and the sidewalk from the camera image.</p>
+                        <div class="auto-labeling-pipeline-images">
+                            <figure>
+                                <img src="images/object-detection.png" alt="Object detection">
+                                <figcaption>Object Detection</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/object-tracking.png" alt="Object tracking">
+                                <figcaption>Object Tracking</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/semantic-segmentation.png" alt="Semantic segmentation">
+                                <figcaption>Semantic Segmentation</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/methods-combined.png" alt="Methods combined">
+                                <figcaption>Methods combined</figcaption>
+                            </figure>
+                        </div>
+                        <img src="images/scheme.jpg" alt="Autolabelling pipeline">
+                        <h4>Classifier</h4>
+                        <p>The classifier model leveraged EfficientNet model as a backbone enabling robust feature extraction together with a custom classifier head. The model was trained using cross-entropy loss function, and a stochastic gradient descent optimizer. In order to prevent overffting, data augmentation and dropout were introduced.</p>
                         <h4>Impact</h4>
-                        <p>Achieved an F1 score of 0.85 and a mean anticipation time of 1.5 seconds, significantly improving potential early warning systems for autonomous vehicles. The project was presented at the Danish Robotics Conference.</p>
+                        <p>The auto-labeling pipeline reached a precision of 96.15% and recall of 70.75%. This demonstrated that the auto-labelling algorithm achieves reliable results and can serve as the baseline for obtaining labeled training data of pedestrians stepping into the road.</p> 
+                        <p>The developed classifier, trained on the data generated by the data creation pipeline, achieved an overall accuracy of 74.41% on the validation data. This demonstrated classifier’s ability to generalize well on unseen data and presents a significant potential for implementation in early warning systems for autonomous vehicles. The project was presented to a committee of professors at the Czech Technical University in Prague during the defense of my bachelor's thesis.</p>
                     `,
                 },
                 {
