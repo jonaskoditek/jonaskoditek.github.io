@@ -218,6 +218,7 @@
             }
 
             /* Project Card (Minimalist Side-by-Side Layout) */
+            /* --- MODIFICATION: Changed .project-card to an <a> tag --- */
             .project-card {
                 margin-bottom: 30px;
                 border-radius: 8px; 
@@ -228,6 +229,8 @@
                 overflow: hidden;
                 cursor: pointer;
                 display: block;
+                color: var(--text-color); /* Ensure text color inherits properly for <a> */
+                text-decoration: none; /* Remove underline from link */
             }
             [data-theme="dark"] .project-card {
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
@@ -321,70 +324,11 @@
             }
             /* --- END TAGS --- */
 
-            /* --- READ MORE: MINIMALIST DEFAULT --- */
-            .read-more-btn {
-                display: inline-block;
-                color: var(--secondary-text-color); /* Default grey color */
-                font-weight: 600;
-                font-size: 14px;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                text-decoration: none;
-                z-index: 2;
-                transition: color 0.2s;
-                margin-top: 10px;
-            }
-            /* READ MORE: ACTIVATE ON CARD HOVER */
-            .project-card:not(.hidden):hover .read-more-btn {
-                color: var(--accent-color); /* Turns accent color on card hover */
-            }
-            /* --- END READ MORE --- */
-
-            .read-more-btn i {
-                margin-left: 8px;
-                transition: transform 0.3s;
-            }
-            .project-card.expanded .read-more-btn i {
-                transform: rotate(180deg);
-            }
-
-            /* Expandable Detail Section */
-            .project-detail-wrapper {
-                max-height: 0;
-                overflow: hidden;
-                /* --- FIX: Reduced transition speed to 0.3s --- */
-                transition: max-height 0.3s ease-in-out; 
-                /* ------------------------------------------- */
-                border-top: 1px solid var(--border-color);
-                padding: 0 24px;
-            }
-            
-            .project-card.expanded .project-detail-wrapper {
-                max-height: 4000px; 
-                padding: 24px;
-            }
-
-            .project-detail {
-                padding-top: 0px;
-                color: var(--secondary-text-color);
-            }
-            .project-detail h4 {
-                color: var(--text-color);
-                font-size: 19px;
-                margin-bottom: 10px;
-                font-weight: 700;
-            }
-            .project-detail p {
-                margin-bottom: 15px;
-            }
-            .project-detail img {
-                max-width: 100%;
-                height: auto;
-                border-radius: 8px;
-                margin: 20px 0;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-                border: 1px solid var(--border-color); /* Subtle image border */
-            }
+            /* --- REMOVED: All .read-more-btn styles --- */
+            /* --- REMOVED: All .project-detail-wrapper styles --- */
+            /* --- REMOVED: All .project-card.expanded styles --- */
+            /* --- REMOVED: All .project-detail styles --- */
+            /* --- (Note: detail styles will be in the new file) --- */
 
             .bdd100k-image {
                 display: flex;
@@ -587,8 +531,7 @@
                 
                 h2 { font-size: 26px; margin-top: 0; }
                 .project-title { font-size: 20px; }
-                .project-detail-wrapper { padding: 0 20px; }
-                .project-card.expanded .project-detail-wrapper { padding: 20px; }
+                /* --- REMOVED: .project-detail-wrapper responsive styles --- */
 
                 .filter-buttons { gap: 8px; }
                 .filter-button { padding: 6px 12px; font-size: 13px; }
@@ -627,13 +570,11 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="#about" title="About">About</a>
-                        <a href="#projects" title="Projects">Projects</a>
-                        <a href="#contact" title="Contact">Contact</a> <!-- New Contact Link -->
-                        <!-- CV Link removed as per discussion -->
-                        <div class="theme-switch" onclick="toggleTheme()">
+                        <a href="index.html#about" title="About">About</a>
+                        <a href="index.html#projects" title="Projects">Projects</a>
+                        <a href="index.html#contact" title="Contact">Contact</a> <div class="theme-switch" onclick="toggleTheme()">
                             <span id="theme-icon">
-                                <!-- Icon will be inserted by JavaScript --></span>
+                                </span>
                         </div>
                     </li>
                 </ul>
@@ -642,7 +583,7 @@
         <main>
             <section id="about">
                 <div>
-                    <!-- Updated profile photo placeholder --><img src="images/profile-photo.jpg" alt="Profile Photo" class="profile-photo">
+                    <img src="images/profile-photo.jpg" alt="Profile Photo" class="profile-photo">
                 </div>
                 <div class="profile-titles">
                     <h2>Jonas Koditek</h2>
@@ -661,21 +602,18 @@
                 </div>
             </section>
             
-            <!-- Skills section removed as per discussion -->
-
             <section id="projects">
                 <div class="project-heading">
                     <h2>Projects</h2>
                 </div>
 
-                <!-- Project Filtering Buttons --><div class="filter-buttons" id="filter-container">
-                    <!-- Buttons will be dynamically generated by JavaScript --></div>
+                <div class="filter-buttons" id="filter-container">
+                    </div>
 
-                <!-- Project Cards Container (Dynamic Content) --><div id="projects-container">
-                    <!-- Project cards will be dynamically generated by JavaScript --></div>
+                <div id="projects-container">
+                    </div>
             </section>
             
-            <!-- Updated Contact Section -->
             <section id="contact">
                 <div class="contact-header">
                     <h2>Let's Connect</h2>
@@ -699,7 +637,7 @@
                         &copy; <span id="currentYear"></span> Jonas Koditek. All Rights Reserved.
                     </p>
                     <div class="footer-util-right">
-                        <a href="project-1.html" title="Privacy Policy" class="privacy-link">Privacy Policy</a>
+                        <a href="#" title="Privacy Policy" class="privacy-link">Privacy Policy</a>
                         <div class="footer-social-links">
                             <a href="https://github.com/jonaskoda" title="GitHub" target="_blank">
                                 <i class="fa-brands fa-github"></i>
@@ -808,6 +746,7 @@
                     description: "Predicting the intention of pedestrians to step into a road from a car's front view using deep learning.",
                     tags: ['ML', 'Deep Learning', 'Computer Vision', 'Python', 'Pytorch'],
                     image: 'images/walker.png',
+                    date: 'AUG 30, 2025', // Added date for new page
                     detailContent: `
                         <h4>Core Challenge & Solution</h4>
                         <p>This research focused on automatically finding moments in which a pedestrian steps into a road by analyzing vehicle dashcam footage and using these data to train a classifier capable of predicting real-time, whether a pedestrian is going to step into the road. This is especially useful in autonmous driving and drive assisting systems that can either take control over the situation and activate breaks or preactivate the breaking system for faster breaking response. </p>
@@ -855,6 +794,7 @@
                     description: "Developed and simulated a robust high-level motion planning and gait control system for a four-legged robot.",
                     tags: ['Robotics', 'ROS', 'C++', 'Gazebo', 'MPC'],
                     image: 'images/electronics-proj.png',
+                    date: 'JUL 15, 2025',
                     detailContent: `
                         <h4>Core Challenge & Solution</h4>
                         <p>The project focused on implementing Model Predictive Control (MPC) for stable locomotion over uneven terrain. The simulation environment was built entirely in Gazebo, integrated with ROS for inter-process communication and real-time data exchange.</p>
@@ -870,6 +810,7 @@
                     description: "Designed a low-power, Wi-Fi-enabled thermostat with a custom Android app for remote control and data logging.",
                     tags: ['IoT', 'Electronics', 'Firmware (C++)', 'Android', 'Firebase'],
                     image: 'images/api-project.png',
+                    date: 'MAY 02, 2025',
                     detailContent: `
                         <h4>Core Challenge & Solution</h4>
                         <p>This project involved full-stack capability from hardware design to cloud service. The hardware utilized an ESP32 microcontroller and a BME280 sensor on a custom PCB. The firmware was written in C++ using the Arduino framework, optimized for low power consumption.</p>
@@ -885,6 +826,7 @@
                     description: "Developed a scalable, full-stack microservice for real-time customer support using the Gemini API.",
                     tags: ['Full-Stack', 'Node.js', 'API Integration', 'Cloud Functions', 'Gemini API'],
                     image: 'images/LLM-proj.png',
+                    date: 'MAR 20, 2025',
                     detailContent: `
                         <h4>Core Challenge & Solution</h4>
                         <p>Created a robust backend using Node.js and Google Cloud Functions to handle high-volume, concurrent requests. The service integrates the Gemini API for natural language understanding and response generation, offering human-like, 24/7 support.</p>
@@ -919,13 +861,16 @@
                     const isVisible = filterCategory === 'All' || project.category === filterCategory;
                     
                     if (isVisible) {
-                        const projectElement = document.createElement('div');
+                        // --- MODIFICATION: Changed from <div> to <a> ---
+                        const projectElement = document.createElement('a');
                         projectElement.classList.add('project-card');
                         projectElement.setAttribute('data-category', project.category);
                         projectElement.setAttribute('data-id', project.id);
+                        // --- MODIFICATION: Set href to link to detail page with URL parameter ---
+                        projectElement.href = `project-detail.html?id=${project.id}`;
                         
                         projectElement.innerHTML = `
-                            <!-- Project Summary (Image and Text Side-by-Side) --><div class="project-summary">
+                            <div class="project-summary">
                                 <div class="project-image-container">
                                     <img src="${project.image}" alt="${project.title} project" class="project-image">
                                 </div>
@@ -935,53 +880,16 @@
                                     <div class="project-tags">
                                         ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                                     </div>
-                                    <div style="margin-top: 15px;">
-                                        <a href="#" class="read-more-btn" data-id="${project.id}" onclick="event.stopPropagation();">
-                                            Read More 
-                                            <i class="fa-solid fa-chevron-down"></i>
-                                        </a>
                                     </div>
-                                </div>
                             </div>
-                            
-                            <!-- Detail section - hidden by default --><div class="project-detail-wrapper">
-                                <div class="project-detail">
-                                    ${project.detailContent}
-                                </div>
-                            </div>
-                        `;
-                        projectElement.addEventListener('click', (e) => toggleProjectDetail(e, projectElement));
+                            `;
+                        // --- REMOVED: click event listener for toggleProjectDetail ---
                         container.appendChild(projectElement);
                     }
                 });
             }
 
-            // 2. Toggle the expanded state of a project card
-            function toggleProjectDetail(e, cardElement) {
-                
-                // If the click target is the card itself or its children, toggle expansion
-                if (cardElement) {
-                    const isExpanded = cardElement.classList.contains('expanded');
-                    
-                    // Collapse all other cards
-                    document.querySelectorAll('.project-card.expanded').forEach(card => {
-                        if (card !== cardElement) {
-                            card.classList.remove('expanded');
-                        }
-                    });
-
-                    // Toggle current card
-                    cardElement.classList.toggle('expanded', !isExpanded);
-                    
-                    // Scroll into view if expanding
-                    if (!isExpanded) {
-                        setTimeout(() => {
-                             cardElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 500); // Wait for transition to complete
-                    }
-                }
-                e.preventDefault(); // Stop link from navigating
-            }
+            // 2. --- REMOVED: toggleProjectDetail function ---
 
             // 3. Render filter buttons and set up event listeners
             function renderFilters(initialFilter = 'All') {
@@ -1010,9 +918,8 @@
                         });
                         e.target.classList.add('active');
 
-                        // Collapse all cards before filtering
-                        document.querySelectorAll('.project-card').forEach(card => card.classList.remove('expanded'));
-
+                        // --- REMOVED: Collapse all cards ---
+                        
                         // Filter and render projects
                         activeCategory = newCategory;
                         renderProjects(activeCategory);
@@ -1056,7 +963,6 @@
                 // 4. Render projects with the determined filter
                 renderProjects(initialFilter);
             });
-            // Removed window.addEventListener('scroll', scrollFunction);
         </script>
     </body>
 </html>

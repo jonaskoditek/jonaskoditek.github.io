@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <title>Project Details</title>
+        <style>
+            /* Theme variables */
+            :root {
+                --background-color: #ffffff;
+                --text-color: #202124;
+                --secondary-text-color: #5f6368;
+                --card-background: #f7f7f7; /* Light gray for buttons/cards */
+                --border-color: rgba(0, 0, 0, 0.1); /* Subtle border for cards */
+                --button-color: #1a73e8;
+                --button-hover: #1765cc;
+                --accent-color: #1a73e8;
+            }
+
+            /* Dark theme variables*/
+            [data-theme="dark"] {
+                --background-color: #1f1f1f;
+                --text-color: #e8eaed;
+                --secondary-text-color: #9aa0a6;
+                --card-background: #282828; /* Slightly darker card background for better contrast */
+                --border-color: rgba(255, 255, 255, 0.1);
+                --button-color: #8ab4f8;
+                --button-hover: #aecbfa;
+                --accent-color: #8ab4f8;
+            }
+            
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 100px;
+            }
+
+            * {
+                font-family: 'Inter', Arial, sans-serif; 
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                color: var(--text-color);
+                background-color: var(--background-color);
+                transition: all 0.3s ease;
+                font-size: 16px;
+                line-height: 1.6;
+            }
+
+            /* Header and Navigation (Identical to index.html) */
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: 20px 0;
+                background-color: var(--background-color);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); /* Subtler shadow */
+                z-index: 1000;
+            }
+            header nav {
+                max-width: min(750px, 95vw); /* Reduced width */
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+            header a {
+                color: var(--text-color);
+                text-decoration: none;
+                border-radius: 8px;
+                transition: color 0.2s;
+            }
+            header li a {
+                padding: 8px 12px;
+                transition: background-color 0.2s, color 0.2s;
+            }
+            header li a:hover, .social-links a:hover, .theme-switch:hover {
+                background-color: rgba(var(--accent-color-rgb), 0.05);
+                color: var(--accent-color);
+            }
+            [data-theme="dark"] header li a:hover, 
+            [data-theme="dark"] .social-links a:hover, 
+            [data-theme="dark"] .theme-switch:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            .social-links { display: flex; gap: 15px; }
+            .social-links a { padding: 8px; }
+            header ul { display: flex; list-style: none; }
+            header li { display: flex; gap: 15px; align-items: center; }
+            .theme-switch {
+                display: flex; align-items: center; justify-content: center;
+                cursor: pointer; padding: 8px; border-radius: 8px;
+                transition: background-color 0.2s;
+            }
+            .theme-switch i { width: 20px; height: 20px; color: var(--text-color); }
+            .theme-switch:hover i { color: var(--accent-color); }
+
+            /* Main Content */
+            main {
+                max-width: min(750px, 95vw); /* Reduced width */
+                margin: 0 auto;
+                padding: 20px 16px;
+                margin-top: 100px; /* Space for fixed header */
+            }
+
+            /* --- NEW: Back Button Style (from your screenshot) --- */
+            .back-button {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                border-radius: 99px; /* Pill shape */
+                background-color: var(--card-background);
+                color: var(--secondary-text-color);
+                font-size: 15px;
+                font-weight: 500;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: background-color 0.2s, color 0.2s;
+            }
+            .back-button:hover {
+                background-color: var(--border-color);
+                color: var(--text-color);
+            }
+
+            /* --- NEW: Project Article Styling (from your screenshot) --- */
+            .project-article {
+                margin-top: 40px;
+                /* --- NEW: Smooth load animation --- */
+                opacity: 0;
+                animation: fadeInSlideUp 0.6s 0.1s ease-out forwards;
+            }
+            
+            .project-date {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--secondary-text-color);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 16px;
+            }
+            
+            .project-main-title {
+                font-size: 44px; /* Large title */
+                font-weight: 700;
+                color: var(--text-color);
+                line-height: 1.2;
+                margin-bottom: 24px;
+            }
+            
+            .project-summary-text {
+                font-size: 20px;
+                line-height: 1.6;
+                color: var(--secondary-text-color);
+                margin-bottom: 40px;
+                padding-bottom: 40px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .project-detail-content {
+                color: var(--secondary-text-color);
+            }
+            .project-detail-content h4 {
+                color: var(--text-color);
+                font-size: 24px; /* Larger subtitle */
+                margin-top: 30px;
+                margin-bottom: 10px;
+                font-weight: 600;
+            }
+            .project-detail-content p {
+                margin-bottom: 20px;
+                font-size: 17px;
+                line-height: 1.7;
+            }
+            .project-detail-content img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 8px;
+                margin: 20px 0;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                border: 1px solid var(--border-color); /* Subtle image border */
+            }
+
+            /* --- NEW: Keyframe animation for smooth load --- */
+            @keyframes fadeInSlideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* --- (Copied from index.html for image layouts) --- */
+            .bdd100k-image {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 20px 0;
+            }
+            .bdd100k-image img { margin-bottom: 4px; }
+            .bdd100k-image figcaption {
+                font-size: 15px;
+                color: var(--secondary-text-color);
+                margin-top: 0;
+                text-align: center;
+            }
+            .auto-labeling-pipeline-images {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 24px;
+                margin: 20px 0;
+            }
+            .auto-labeling-pipeline-images figure { text-align: center; }
+            .auto-labeling-pipeline-images img {
+                width: 100%;
+                max-width: 320px;
+                border-radius: 8px;
+                margin-bottom: 4px;
+            }
+            .auto-labeling-pipeline-images figcaption {
+                font-size: 15px;
+                margin-top: 0;
+            }
+            
+            /* --- FOOTER STYLING (Identical to index.html) --- */
+            footer {
+                background-color: var(--card-background);
+                padding: 30px 0;
+                border-top: 1px solid var(--border-color);
+                font-size: 14px;
+                color: var(--secondary-text-color);
+                margin-top: 80px; /* Add space above footer */
+            }
+            .footer-content {
+                max-width: min(750px, 95vw);
+                margin: 0 auto;
+                padding: 0 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .footer-links-group {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .footer-util-right {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+            .privacy-link {
+                color: var(--secondary-text-color);
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+            .privacy-link:hover { color: var(--accent-color); }
+            .footer-social-links { display: flex; gap: 15px; }
+            .footer-social-links a {
+                color: var(--secondary-text-color);
+                transition: color 0.2s;
+            }
+            .footer-social-links a:hover { color: var(--accent-color); }
+
+            /* Responsive adjustments */
+            @media (max-width: 600px) {
+                .project-main-title { font-size: 32px; }
+                .project-summary-text { font-size: 18px; }
+                .project-detail-content h4 { font-size: 20px; }
+                .project-detail-content p { font-size: 16px; }
+
+                .footer-links-group {
+                    flex-direction: column;
+                    gap: 15px;
+                    align-items: flex-start;
+                }
+                .footer-links a {
+                    margin-right: 15px;
+                }
+            }
+
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="social-links">
+                    <a href="mailto:jonaskoditek@gmail.com" title="Email">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                    <a href="https://github.com/jonaskoda" title="GitHub" target="_blank">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/jonas-koditek" title="LinkedIn" target="_blank">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                </div>
+                <ul>
+                    <li>
+                        <a href="index.html#about" title="About">About</a>
+                        <a href="index.html#projects" title="Projects">Projects</a>
+                        <a href="index.html#contact" title="Contact">Contact</a>
+                        <div class="theme-switch" onclick="toggleTheme()">
+                            <span id="theme-icon">
+                                </span>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <a href="index.html#projects" class="back-button">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+            
+            <article class="project-article" id="project-content-wrapper">
+                <div id="project-placeholder">
+                    <h1 class="project-main-title">Loading Project...</h1>
+                </div>
+            </article>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-links-group">
+                    <p class="copyright">
+                        &copy; <span id="currentYear"></span> Jonas Koditek. All Rights Reserved.
+                    </p>
+                    <div class="footer-util-right">
+                        <a href="#" title="Privacy Policy" class="privacy-link">Privacy Policy</a>
+                        <div class="footer-social-links">
+                            <a href="https://github.com/jonaskoda" title="GitHub" target="_blank">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/jonas-koditek" title="LinkedIn" target="_blank">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // --- Theme Switch Logic (Identical to index.html) ---
+            const lightAccentRgb = '26, 115, 232'; // R, G, B for #1a73e8
+            const darkAccentRgb = '138, 180, 248'; // R, G, B for #8ab4f8
+            
+            function setInitialTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                let initialTheme = 'light';
+                
+                if (savedTheme) {
+                    initialTheme = savedTheme;
+                } else {
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    initialTheme = prefersDark ? 'dark' : 'light';
+                }
+                
+                document.documentElement.setAttribute('data-theme', initialTheme);
+                document.documentElement.style.setProperty('--accent-color-rgb', initialTheme === 'light' ? lightAccentRgb : darkAccentRgb);
+                updateThemeIcon(initialTheme);
+            }
+            
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+
+                document.documentElement.style.setProperty('--accent-color-rgb', newTheme === 'light' ? lightAccentRgb : darkAccentRgb);
+                updateThemeIcon(newTheme);
+            }
+            
+            function updateThemeIcon(theme) {
+                const themeIcon = document.getElementById('theme-icon');
+                themeIcon.innerHTML = theme === 'dark' 
+                    ? `<i class="fa-solid fa-sun"></i>` 
+                    : `<i class="fa-solid fa-moon"></i>`;
+            }
+
+            // --- Utility for reading URL parameter (Identical to index.html) ---
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                const results = regex.exec(location.search);
+                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            };
+            
+            // --- Project Data (Copied from index.html) ---
+            // This is needed to look up the project details
+            const projectsData = [
+                {
+                    id: 'pedestrian-intent',
+                    title: 'Autonomous Driving System',
+                    category: 'Machine Learning',
+                    description: "Predicting the intention of pedestrians to step into a road from a car's front view using deep learning.",
+                    tags: ['ML', 'Deep Learning', 'Computer Vision', 'Python', 'Pytorch'],
+                    image: 'images/walker.png',
+                    date: 'AUG 30, 2025', 
+                    detailContent: `
+                        <h4>Core Challenge & Solution</h4>
+                        <p>This research focused on automatically finding moments in which a pedestrian steps into a road by analyzing vehicle dashcam footage and using these data to train a classifier capable of predicting real-time, whether a pedestrian is going to step into the road. This is especially useful in autonmous driving and drive assisting systems that can either take control over the situation and activate breaks or preactivate the breaking system for faster breaking response. </p>
+                        <div class="bdd100k-image">
+                            <img src="images/bdd100k.gif" alt="Model Architecture Diagram">
+                            <figcaption>BDD100K Dataset</figcaption>
+                        </div>
+                        <h4>Implementation Details</h4>
+                        <p>The project involved the development of two major components. The first was an auto-labelling pipeline aimed at generating autmatically labeled training data. These training data were then used in the second part of the project that involved designing a classifier model and training it using the generated training data.</p>
+                        <h4>Auto-labeling pipeline</h4>
+                        <p>The auto-labeling pipeline leveraged state-of-the-art object detection model to capture pedestrians, object tracking model to track the pedestrians across consecutive frames, and semantic segmentation model to segment the road and the sidewalk from the camera image.</p>
+                        <div class="auto-labeling-pipeline-images">
+                            <figure>
+                                <img src="images/object-detection.png" alt="Object detection">
+                                <figcaption>Object Detection</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/object-tracking.png" alt="Object tracking">
+                                <figcaption>Object Tracking</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/semantic-segmentation.png" alt="Semantic segmentation">
+                                <figcaption>Semantic Segmentation</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/methods-combined.png" alt="Methods combined">
+                                <figcaption>Methods combined</figcaption>
+                            </figure>
+                        </div>
+                        <p>The autolabeling pipeline high-level architecture is illustrated in the following diagram.</p>
+                        <img src="images/scheme.jpg" alt="Autolabelling pipeline">
+                        <p>The following gif demonstrates the autolabeling pipeline in action.</p>
+                        <img src="images/pedestrians-in-road.gif" alt="Pedestrians stepping into the road">
+                        <h4>Classifier</h4>
+                        <p>The classifier model leveraged EfficientNet model as a backbone enabling robust feature extraction together with a custom classifier head. The model was trained using cross-entropy loss function, and a stochastic gradient descent optimizer. In order to prevent overffting, data augmentation and dropout were introduced.</p>
+                        <h4>Impact</h4>
+                        <p>The auto-labeling pipeline reached a precision of 96.15% and recall of 70.75%. This demonstrated that the auto-labelling algorithm achieves reliable results and can serve as the baseline for obtaining labeled training data of pedestrians stepping into the road.</p> 
+                        <p>The developed classifier, trained on the data generated by the data creation pipeline, achieved an overall accuracy of 74.41% on the validation data. This demonstrated classifier’s ability to generalize well on unseen data and presents a significant potential for implementation in early warning systems for autonomous vehicles. The project was presented to a committee of professors at the Czech Technical University in Prague during the defense of my bachelor's thesis.</p>
+                    `,
+                },
+                {
+                    id: 'quadruped-control',
+                    title: 'ROS Quadruped Gait Control',
+                    category: 'Robotics',
+                    description: "Developed and simulated a robust high-level motion planning and gait control system for a four-legged robot.",
+                    tags: ['Robotics', 'ROS', 'C++', 'Gazebo', 'MPC'],
+                    image: 'images/electronics-proj.png',
+                    date: 'JUL 15, 2025',
+                    detailContent: `
+                        <h4>Core Challenge & Solution</h4>
+                        <p>The project focused on implementing Model Predictive Control (MPC) for stable locomotion over uneven terrain. The simulation environment was built entirely in Gazebo, integrated with ROS for inter-process communication and real-time data exchange.</p>
+                        <img src="https://placehold.co/800x400/00bcd4/202124?text=Gazebo+Simulation" alt="Gazebo Simulation Screenshot">
+                        <h4>Implementation Details</h4>
+                        <p>Custom C++ nodes were created for gait transition logic and trajectory generation. The system was capable of reliably transitioning between trot, walk, and pace gaits, demonstrating proficiency in complex real-time control systems. Used state machines to handle abrupt changes in terrain.</p>
+                    `,
+                },
+                {
+                    id: 'smart-thermostat',
+                    title: 'IoT Smart Thermostat System',
+                    category: 'Electronics',
+                    description: "Designed a low-power, Wi-Fi-enabled thermostat with a custom Android app for remote control and data logging.",
+                    tags: ['IoT', 'Electronics', 'Firmware (C++)', 'Android', 'Firebase'],
+                    image: 'images/api-project.png',
+                    date: 'MAY 02, 2025',
+                    detailContent: `
+                        <h4>Core Challenge & Solution</h4>
+                        <p>This project involved full-stack capability from hardware design to cloud service. The hardware utilized an ESP32 microcontroller and a BME280 sensor on a custom PCB. The firmware was written in C++ using the Arduino framework, optimized for low power consumption.</p>
+                        <img src="https://placehold.co/800x400/8bc34a/202124?text=Custom+PCB+Layout" alt="IoT Thermostat Device">
+                        <h4>Features</h4>
+                        <p>Real-time data logging and remote control were handled using Google's Firebase Realtime Database, integrated with the native Android control application. This demonstrates end-to-end product development skills. The system uses a PID controller for precise temperature regulation.</p>
+                    `,
+                },
+                {
+                    id: 'ai-chat-service',
+                    title: 'GPT-Powered Customer Service Bot',
+                    category: 'Software Engineering',
+                    description: "Developed a scalable, full-stack microservice for real-time customer support using the Gemini API.",
+                    tags: ['Full-Stack', 'Node.js', 'API Integration', 'Cloud Functions', 'Gemini API'],
+                    image: 'images/LLM-proj.png',
+                    date: 'MAR 20, 2025',
+                    detailContent: `
+                        <h4>Core Challenge & Solution</h4>
+                        <p>Created a robust backend using Node.js and Google Cloud Functions to handle high-volume, concurrent requests. The service integrates the Gemini API for natural language understanding and response generation, offering human-like, 24/7 support.</p>
+                        <img src="https://placehold.co/800x400/ffc107/202124?text=Chat+Interface+Design" alt="AI Chatbot Interface">
+                        <h4>Architecture</h4>
+_                        <p>Implemented a caching layer and rate limiting to ensure API stability and cost control. The frontend was built with React for a seamless user experience, demonstrating strong proficiency in modern web architecture. Database storage was handled by PostgreSQL.</p>
+                    `,
+                },
+            ];
+
+            // --- Dynamically set the current year in the footer ---
+            function setFooterYear() {
+                const yearSpan = document.getElementById('currentYear');
+                if (yearSpan) {
+                    yearSpan.textContent = new Date().getFullYear();
+                }
+            }
+
+            // --- NEW: Function to load project details ---
+            function loadProjectDetails() {
+                const projectId = getUrlParameter('id');
+                const project = projectsData.find(p => p.id === projectId);
+                const container = document.getElementById('project-content-wrapper');
+
+                if (project) {
+                    // Set the page title
+                    document.title = project.title + " | Jonas Koditek";
+
+                    // Inject the content
+                    container.innerHTML = `
+                        <p class="project-date">${project.date || 'PROJECT'}</p>
+                        <h1 class="project-main-title">${project.title}</h1>
+                        <p class="project-summary-text">${project.description}</p>
+                        <div class="project-detail-content">
+                            ${project.detailContent}
+                        </div>
+                    `;
+                } else {
+                    // Handle project not found
+                    document.title = "Project Not Found";
+                    container.innerHTML = `
+                        <h1 class="project-main-title">Project Not Found</h1>
+                        <p class="project-summary-text">The project you're looking for doesn't seem to exist. You can return to the main page to see all projects.</p>
+                    `;
+                }
+            }
+            
+            // Initialization
+            document.addEventListener('DOMContentLoaded', () => {
+                setInitialTheme();
+                setFooterYear();
+                
+                // --- NEW: Load the project content ---
+                loadProjectDetails();
+            });
+        </script>
+    </body>
+</html>
