@@ -227,13 +227,13 @@
                     category: 'Machine Learning',
                     description: "Predicting the intention of pedestrians to step into a road from a car's front view using deep learning.",
                     tags: ['ML', 'Deep Learning', 'Computer Vision', 'Python', 'Pytorch'],
-                    image: 'images/walker.png', // Main image for the hero section
+                    image: 'images/methods-combined.png', // Main image for the hero section
                     date: 'JUN 16, 2024',
                     keyInfo: {
-                        role: "Machine Learning Engineer (Bachelor Thesis)",
-                        skills: ["Deep Learning", "Computer Vision", "Data Pipeline Automation", "Python", "PyTorch"],
-                        technologies: ["Python", "PyTorch", "OpenCV", "Object Detection/Tracking Models"],
-                        goal: "Develop a system to predict pedestrian road-crossing intent from dashcam footage.",
+                        role: "Bachelor Thesis",
+                        skills: ["Deep Learning", "Computer Vision", "Data Pipeline Automation", "Model Training & Evaluation", "Object Detection", "Object Tracking", "Semantic Segmentation"],
+                        technologies: ["Python", "PyTorch", "OpenCV", "Pandas", "NumPy", "Scikit-learn", "Matplotlib", "CUDA"],
+                        goal: "Automatically label dashcam footage and train a model to predict pedestrian road-crossing intent.",
                         result: "Achieved 74.4% prediction accuracy & 96.1% auto-labeling precision."
                     },
                     detailContent: `
@@ -241,7 +241,7 @@
                         <p>This research focused on automatically finding moments when a pedestrian steps into a road by analyzing <strong>vehicle dashcam footage</strong>. The goal was to train a classifier capable of predicting, in real-time, whether a pedestrian intends to cross. This is crucial for <strong>autonomous driving</strong> and driver-assisting systems, enabling faster braking responses either by taking control or pre-activating the braking system.</p>
                         <div class="bdd100k-image">
                             <img src="images/bdd100k.gif" alt="BDD100K Dataset Example">
-                            <figcaption>Example from the BDD100K driving dataset used for sourcing data.</figcaption>
+                            <figcaption>Example from the BDD100K driving dataset used for obtaining training data.</figcaption>
                         </div>
 
                         <h4>Implementation Details</h4>
@@ -255,13 +255,23 @@
                              <figure><img src="images/semantic-segmentation.png" alt="Semantic segmentation"><figcaption>Semantic Segmentation</figcaption></figure>
                              <figure><img src="images/methods-combined.png" alt="Methods combined"><figcaption>Combined Analysis</figcaption></figure>
                         </div>
-                        <p>The high-level architecture involved processing video frames through each model sequentially, correlating the outputs to generate the final labels.</p>
-                        <img src="images/scheme.jpg" alt="Autolabelling pipeline diagram">
-                        <p>The GIF below demonstrates the pipeline identifying pedestrians entering the roadway.</p>
-                        <img src="images/pedestrians-in-road.gif" alt="Pedestrians stepping into the road animation">
+                        <p>The high-level architecture involved processing video frames through each model sequentially, combining the outputs to generate the final labels.</p>
+                        <figure class="bdd100k-image">
+                            <img src="images/scheme.jpg" alt="Autolabelling pipeline diagram">
+                            <figcaption>High-level architecture of the auto-labeling pipeline.</figcaption>
+                        </figure>
+                        <p>The GIF below demonstrates the pipeline in action, identifying pedestrians entering the roadway.</p>
+                        <figure class="bdd100k-image">
+                            <img src="images/pedestrians-in-road.gif" alt="Pedestrians stepping into the road animation">
+                            <figcaption>Auto-labeling pipeline in action. The system identifies pedestrians crossing from the sidewalk (green bounding boxes) onto the road (red bounding boxes).</figcaption>
+                        </figure>
 
                         <h4>Classifier Model</h4>
-                        <p>The classifier used an <strong>EfficientNet backbone</strong> for robust feature extraction from image sequences around the pedestrian, combined with a custom classifier head. Training utilized a cross-entropy loss function and SGD optimizer. Techniques like <strong>data augmentation and dropout</strong> were employed to prevent overfitting.</p>
+                        <p>The classifier used an <strong>EfficientNet backbone</strong> for robust feature extraction from image sequences around the pedestrian, combined with a custom classifier head. Training utilized a cross-entropy loss function and SGD optimizer. <strong>Data augmentation and dropout</strong> techniques were employed to prevent overfitting.</p>
+                        <figure class="bdd100k-image">
+                            <img src="images/classifier.drawio.png" alt="Classifier model architecture">
+                            <figcaption>Feedforward through the classifier model and its detailed architecture.</figcaption>
+                        </figure>
 
                         <h4>Impact & Results</h4>
                         <p>The auto-labeling pipeline achieved a <strong>precision of 96.15%</strong> and recall of 70.75%, proving its reliability for generating baseline training data.</p>
