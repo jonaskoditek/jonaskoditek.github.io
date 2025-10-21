@@ -66,7 +66,7 @@
                 display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 99px;
                 background-color: var(--card-background); color: var(--secondary-text-color); font-size: 15px; font-weight: 500;
                 text-decoration: none; border: 1px solid var(--border-color); transition: background-color 0.2s, color 0.2s;
-                opacity: 0; animation: fadeInSlideUp 0.6s 0.1s ease-out forwards; margin-bottom: 20px;
+                opacity: 0; animation: fadeInSlideUp 0.6s 0.1s ease-out forwards; margin-bottom: 40px;
             }
             .back-button:hover { background-color: var(--border-color); color: var(--text-color); }
 
@@ -131,6 +131,12 @@
             .bdd100k-image { display: flex; flex-direction: column; align-items: center; margin: 20px 0 1.5rem 0; }
             .bdd100k-image img { margin-bottom: 4px; }
             .bdd100k-image figcaption { font-size: 14px; line-height: 1.5; color: var(--secondary-text-color); margin-top: 0; text-align: center; }
+
+            .two-images-row {display: flex; gap: 24px; justify-content: center; align-items: flex-start; margin: 20px 0 1.5rem 0;}
+            .two-images-row figure {flex: 1 1 0; text-align: center;}
+            .two-images-row img {max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border: 1px solid var(--border-color);}
+            .two-images-row figcaption {font-size: 14px; line-height: 1.5; color: var(--secondary-text-color); margin-top: 0; text-align: center;}
+
             .auto-labeling-pipeline-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin: 20px 0 1.5rem 0; }
             .auto-labeling-pipeline-images figure { text-align: center; }
             .auto-labeling-pipeline-images img { width: 100%; max-width: 320px; border-radius: 8px; margin-bottom: 4px; }
@@ -163,6 +169,13 @@
                 .footer-links a { margin-right: 15px; }
             }
 
+            @media (max-width: 700px) {
+                .two-images-row {
+                    flex-direction: column;
+                    gap: 16px;
+                }
+            }
+
         </style>
     </head>
 
@@ -181,10 +194,12 @@
         </header>
 
         <main>
-            <a href="index.html" class="back-button"><i class="fa-solid fa-arrow-left"></i> Back</a>
-
-            <article class="project-article" id="project-content-wrapper">
-                <div id="project-placeholder"><h1 class="project-main-title">Loading Project...</h1></div>
+            <article class="project-article" >
+                <a href="index.html" class="back-button"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                
+                <div id="project-content-wrapper">
+                    <div id="project-placeholder"><h1 class="project-main-title">Loading Project...</h1></div>
+                </div>
             </article>
         </main>
 
@@ -232,7 +247,7 @@
                     keyInfo: {
                         role: "Bachelor Thesis",
                         skills: ["Deep Learning", "Computer Vision", "Data Pipeline Automation", "Model Training & Evaluation", "Object Detection", "Object Tracking", "Semantic Segmentation"],
-                        technologies: ["Python", "PyTorch", "OpenCV", "Pandas", "NumPy", "Scikit-learn", "Matplotlib", "CUDA"],
+                        technologies: ["Python", "PyTorch", "OpenCV", "Docker", "Pandas", "NumPy", "Scikit-learn", "Matplotlib", "CUDA"],
                         goal: "Automatically label dashcam footage and train a model to predict pedestrian road-crossing intent.",
                         result: "Achieved 74.4% prediction accuracy & 96.1% auto-labeling precision."
                     },
@@ -279,28 +294,66 @@
                     `,
                 },
                 {
-                    id: 'quadruped-control',
-                    title: 'ROS Quadruped Gait Control',
+                    id: 'mars-rover',
+                    title: 'Space Robotics Rover - Autonomous Navigation',
                     category: 'Robotics',
                     description: "Developed and simulated a robust high-level motion planning and gait control system for a four-legged robot.",
-                    tags: ['Robotics', 'ROS', 'C++', 'Gazebo', 'MPC'],
-                    image: 'images/electronics-proj.png', // ADD YOUR IMAGE PATH
-                    date: 'JUL 15, 2025',
+                    tags: ['Robotics', 'ROS', 'SLAM', 'Navigation', 'Path Planning', 'Sensor Fusion'],
+                    image: 'images/mars-rover/mars-rover-cover.png', // ADD YOUR IMAGE PATH
+                    date: 'JAN 19, 2025',
                     keyInfo: {
-                        role: "Robotics Engineer (Course Project)",
-                        skills: ["Robotics Control Systems", "ROS", "Simulation", "Model Predictive Control (MPC)"],
-                        technologies: ["C++", "ROS", "Gazebo", "State Machines"],
-                        goal: "Implement stable locomotion control for a quadruped robot on uneven terrain.",
-                        result: "Successfully simulated trot, walk, and pace gaits with reliable transitions."
-                    },
-                    detailContent: `
-                        <h4>Core Challenge & Solution</h4>
-                        <p>The project focused on implementing <strong>Model Predictive Control (MPC)</strong> for stable locomotion over uneven terrain. The simulation environment was built entirely in <strong>Gazebo</strong>, integrated with <strong>ROS</strong> for inter-process communication and real-time data exchange. The primary challenge was maintaining stability during gait transitions and on varied surfaces.</p>
-                        <img src="https://placehold.co/800x400/00bcd4/202124?text=Gazebo+Simulation" alt="Gazebo Simulation Screenshot">
-                        <h4>Implementation Details</h4>
-                        <p>Custom <strong>C++ ROS nodes</strong> were created for gait transition logic and trajectory generation based on MPC principles. The system was designed to reliably transition between <strong>trot, walk, and pace gaits</strong>. State machines were used to manage gait states and handle abrupt changes in perceived terrain from simulated sensors.</p>
-                        <p>Control parameters were tuned iteratively within the Gazebo simulation to optimize for stability and speed across different simulated terrains, demonstrating proficiency in complex real-time control systems development and validation through simulation.</p>
-                    `,
+                            role: "Semester Project",
+                            skills: ["SLAM", "Path Planning", "Sensor Fusion", "Autonomous Navigation", "Obstacle Avoidance", "Team Collaboration", "Hardware Integration"],
+                            technologies: ["ROS", "Python", "C++", "Docker", "RTAB-Map", "Nav2", "CUDA", "NVIDIA Isaac-Sim"],
+                            goal: "Automatically label dashcam footage and train a model to predict pedestrian road-crossing intent.",
+                        },
+                        detailContent: `
+                            <h4>Core Challenge & Solution</h4>
+                            <p>Our team's 7th-semester project tackled a classic robotics problem: how do you navigate a 3D world, like a rocky Mars yard, using a 2D path planner? The AAU Space Rover's previous system was mapless and couldn't navigate accurately. Our goal was to build a full-stack navigation system for the <strong>European Rover Challenge (ERC)</strong>.</p>
+                            <p>The core challenge was integrating <strong>RTAB-Map</strong>, which builds a 3D map of the world, with <strong>Nav2</strong>, the ROS2 standard for navigation, which relies on a 2D costmap. You can't just flatten a 3D map—you'd lose all information about slopes, hills, and obstacles.</p>
+                            <p><strong>Our solution:</strong> We designed a custom "Traversability Mapping" ROS2 node. This C++ node acts as a bridge, subscribing to the 3D elevation map from RTAB-Map and converting it into a 2D costmap where the "cost" is the <strong>steepness of the terrain</strong>. This way, Nav2 could plan paths that avoided not just rocks, but also slopes that were too steep for the rover to climb.</p>
+                            
+                            <figure class="bdd100k-image">
+                                <img src="images/mars-rover/system_diagram.png" alt="Rover System Architecture Diagram">
+                                <figcaption>The system architecture: The ZED camera feeds RTAB-Map for 3D SLAM. Our custom Traversability node converts the 3D map to a 2D costmap, which Nav2 uses for path planning.</figcaption>
+                            </figure>
+
+                            <h4>The "Bridge": Traversability Mapping</h4>
+                            <p>This custom node was the key to the project's success. It performed a multi-step pipeline on the fly:</p>
+                            <ol>
+                                <li><strong>Get Map:</strong> Subscribes to the 2.5D elevation map from RTAB-Map.</li>
+                                <li><strong>Pre-process:</strong> Fills small gaps in the map data and applies a <strong>Gaussian filter</strong> to smooth out sensor noise from the ZED camera.</li>
+                                <li><strong>Calculate Steepness:</strong> Uses a <strong>finite difference approximation</strong> to calculate the gradient (slope) at every single point on the map.</li>
+                                <li><strong>Convert & Publish:</strong> Translates these steepness values (e.g., 0° to 45°) into a cost (0-100) and publishes it as a standard 2D costmap for Nav2.</li>
+                            </ol>
+                            <p>This process, shown below, effectively taught the 2D planner to "see" in 3D.</p>
+                            
+                            <figure class="bdd100k-image">
+                                <img src="images/rover-traversability-pipeline.jpg" alt="Traversability mapping pipeline">
+                                <figcaption>The 6-step traversability pipeline, from the raw RTAB-Map (a), gap-filling (b), and smoothing (c) to the final steepness map (d, e) and occupancy grid (f) sent to Nav2.</figcaption>
+                            </figure>
+
+                            <h4>Impact & Results</h4>
+                            <p>We conducted three main tests to validate our system:</p>
+                            <ul>
+                                <li><strong>Flat Terrain:</strong> The rover successfully navigated to goal waypoints with an <strong>average accuracy of 0.192m</strong>, well within the 0.55m ERC requirement.</li>
+                                <li><strong>Obstacle Avoidance:</strong> Achieved a 50% success rate in a complex indoor course. This test highlighted areas for future tuning, particularly in the controller's recovery behaviors.</li>
+                                <li><strong>Hill Climb:</strong> This was the biggest win. The rover successfully mapped and navigated up both a <strong>13-degree and a 24-degree grassy hill</strong>, slowing down on the steep inclines just as designed. This proved our core concept of traversability mapping was effective in a real-world scenario.</li>
+                            </ul>
+                            
+                            <div class="two-images-row">
+                                <figure class="bdd100k-image">
+                                    <img src="images/mars-rover/Test3_13_degree_hill.png" alt="Rover climbing a 13-degree hill">
+                                    <figcaption>The rover successfully mapping and climbing a 13-degree hill during outdoor tests.</figcaption>
+                                </figure>
+                                <figure class="bdd100k-image">
+                                    <img src="images/mars-rover/Test3_24_degree_hill.png" alt="Rover climbing a 24-degree hill">
+                                    <figcaption>The rover successfully mapping and climbing a 24-degree hill during outdoor tests.</figcaption>
+                                </figure>
+                            </div>
+
+                            <p>As a 5-person team, we successfully integrated complex, production-grade robotics software (ROS2, Nav2, RTAB-Map) and developed a novel C++ node to create a capable autonomous navigation system, laying a solid foundation for the rover's future competition success.</p>
+                        `
                 },
                 {
                     id: 'smart-thermostat',
