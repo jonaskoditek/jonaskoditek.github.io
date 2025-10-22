@@ -124,6 +124,34 @@
             .project-detail-content p strong { color: var(--text-color); font-weight: 600; }
             .project-detail-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); border: 1px solid var(--border-color); }
 
+            /* --- Improved List Styling --- */
+
+            ul, ol {
+                margin-top: 1rem;
+                margin-bottom: 1.5rem;
+                padding-left: 1.75rem; /* Proper indentation */
+            }
+
+            li {
+                font-size: 1rem;
+                color: #374151;
+                margin-bottom: 0.75rem; /* Adds breathing room between items */
+                line-height: 1.6; /* Improves readability */
+            }
+
+            ul {
+                list-style-type: disc;
+            }
+
+            ol {
+                list-style-type: decimal;
+            }
+            
+            li::marker {
+                color: #003a6c; /* Match the marker color to the heading */
+                font-weight: 500;
+            }
+
             /* --- Keyframe animation --- */
             @keyframes fadeInSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -297,46 +325,54 @@
                     id: 'mars-rover',
                     title: 'Space Robotics Rover - Autonomous Navigation',
                     category: 'Robotics',
-                    description: "Developed and simulated a robust high-level motion planning and gait control system for a four-legged robot.",
+                    description: "Developed a robust mapping, navigation, and high-level motion planning control system for the Mars rover.",
                     tags: ['Robotics', 'ROS', 'SLAM', 'Navigation', 'Path Planning', 'Sensor Fusion'],
                     image: 'images/mars-rover/mars-rover-cover.png', // ADD YOUR IMAGE PATH
                     date: 'JAN 19, 2025',
                     keyInfo: {
                             role: "Semester Project",
                             skills: ["SLAM", "Path Planning", "Sensor Fusion", "Autonomous Navigation", "Obstacle Avoidance", "Team Collaboration", "Hardware Integration"],
-                            technologies: ["ROS", "Python", "C++", "Docker", "RTAB-Map", "Nav2", "CUDA", "NVIDIA Isaac-Sim"],
-                            goal: "Automatically label dashcam footage and train a model to predict pedestrian road-crossing intent.",
+                            technologies: ["ROS", "Python", "C++", "Docker", "RTAB-Map", "Nav2", "CUDA", "NVIDIA Isaac-Sim", "ZED Camera", "LiDAR"],
+                            goal: "Build a full-stack navigation system for the Mars rover to win the European Rover Challenge.",
                         },
                         detailContent: `
                             <h4>Core Challenge & Solution</h4>
                             <p>Our team's 7th-semester project tackled a classic robotics problem: how do you navigate a 3D world, like a rocky Mars yard, using a 2D path planner? The AAU Space Rover's previous system was mapless and couldn't navigate accurately. Our goal was to build a full-stack navigation system for the <strong>European Rover Challenge (ERC)</strong>.</p>
-                            <p>The core challenge was integrating <strong>RTAB-Map</strong>, which builds a 3D map of the world, with <strong>Nav2</strong>, the ROS2 standard for navigation, which relies on a 2D costmap. You can't just flatten a 3D map—you'd lose all information about slopes, hills, and obstacles.</p>
-                            <p><strong>Our solution:</strong> We designed a custom "Traversability Mapping" ROS2 node. This C++ node acts as a bridge, subscribing to the 3D elevation map from RTAB-Map and converting it into a 2D costmap where the "cost" is the <strong>steepness of the terrain</strong>. This way, Nav2 could plan paths that avoided not just rocks, but also slopes that were too steep for the rover to climb.</p>
+                            <p>The core challenge was integrating <strong>RTAB-Map</strong>, which performs SLAM and builds a 3D map of the world, together with <strong>Nav2</strong> ROS navigation library, which relies on a 2D costmap. A direct flattening of the 3D map is an insufficient approach, as this discards critical information about terrain slope, elevation changes, and obstacles.</p>
+                            <p><strong>Our solution:</strong> We designed a custom <strong>"Traversability Mapping"</strong> ROS node. This C++ node acts as a bridge, subscribing to the 2.5D elevation map from RTAB-Map and converting it into a 2D costmap where the "cost" is the <strong>steepness of the terrain</strong>. This way, Nav2 could plan paths that avoided not just rocks, but also slopes that were too steep for the rover to climb.</p>
                             
-                            <figure class="bdd100k-image">
-                                <img src="images/mars-rover/system_diagram.png" alt="Rover System Architecture Diagram">
-                                <figcaption>The system architecture: The ZED camera feeds RTAB-Map for 3D SLAM. Our custom Traversability node converts the 3D map to a 2D costmap, which Nav2 uses for path planning.</figcaption>
+                            <figure class="bdd100k-image" id="rover-hardware-figure">
+                                <img src="images/mars-rover/rover-hardware.png" alt="Rover hardware and sensor components">
+                                <figcaption>The rover's hardware platform, highlighting key components: the ZED stereo camera, LiDAR, and onboard compute unit.</figcaption>
                             </figure>
 
-                            <h4>The "Bridge": Traversability Mapping</h4>
-                            <p>This custom node was the key to the project's success. It performed a multi-step pipeline on the fly:</p>
+                            <figure class="bdd100k-image">
+                                <img src="images/mars-rover/system_diagram.png" alt="Rover System Architecture Diagram">
+                                <figcaption>The system architecture: The ZED camera feeds RTAB-Map for 3D SLAM. Our custom Traversability node subscribes to the 2.5D elevation map and converts it to a 2D costmap, which Nav2 uses for path planning.</figcaption>
+                            </figure>
+
+                            <h4>The Bridge: Traversability Mapping</h4>
+                            <p>This custom node was the integral part of the project. It performed a multi-step processing pipeline in real-time:</p>
                             <ol>
                                 <li><strong>Get Map:</strong> Subscribes to the 2.5D elevation map from RTAB-Map.</li>
                                 <li><strong>Pre-process:</strong> Fills small gaps in the map data and applies a <strong>Gaussian filter</strong> to smooth out sensor noise from the ZED camera.</li>
                                 <li><strong>Calculate Steepness:</strong> Uses a <strong>finite difference approximation</strong> to calculate the gradient (slope) at every single point on the map.</li>
-                                <li><strong>Convert & Publish:</strong> Translates these steepness values (e.g., 0° to 45°) into a cost (0-100) and publishes it as a standard 2D costmap for Nav2.</li>
+                                <li><strong>Convert & Publish:</strong> Translates these steepness values (e.g., 0° to 45°) into a cost (0-100) and publishes it as an occupancy grid for Nav2 that converts it to costmap internally.</li>
+
                             </ol>
-                            <p>This process, shown below, effectively taught the 2D planner to "see" in 3D.</p>
+                            <p>The process detailed below effectively translates the 2.5D elevation map into a 2D costmap, enabling the planner to account for terrain steepness.</p>
                             
                             <figure class="bdd100k-image">
-                                <img src="images/rover-traversability-pipeline.jpg" alt="Traversability mapping pipeline">
-                                <figcaption>The 6-step traversability pipeline, from the raw RTAB-Map (a), gap-filling (b), and smoothing (c) to the final steepness map (d, e) and occupancy grid (f) sent to Nav2.</figcaption>
+                                <img src="images/mars-rover/traversability-mapping.drawio.png" alt="Traversability mapping pipeline">
+                                <figcaption>The 6-step traversability pipeline, from the raw RTAB-Map output (a), gap-filling (b), and smoothing (c) to the final steepness visualization (d, e) and occupancy grid (f) sent to Nav2.</figcaption>
                             </figure>
+
+                            The Nav2 planner computes the optimal path using Dijkstra's algorithm. This path is then fed to a controller, which calculates the appropriate steering and speed commands for the rover's motor controllers.
 
                             <h4>Impact & Results</h4>
                             <p>We conducted three main tests to validate our system:</p>
                             <ul>
-                                <li><strong>Flat Terrain:</strong> The rover successfully navigated to goal waypoints with an <strong>average accuracy of 0.192m</strong>, well within the 0.55m ERC requirement.</li>
+                                <li><strong>Flat Terrain:</strong> The rover successfully navigated to goal waypoints with an <strong>average positioning error of 0.192m</strong>, well within the 0.55m ERC requirement.</li>
                                 <li><strong>Obstacle Avoidance:</strong> Achieved a 50% success rate in a complex indoor course. This test highlighted areas for future tuning, particularly in the controller's recovery behaviors.</li>
                                 <li><strong>Hill Climb:</strong> This was the biggest win. The rover successfully mapped and navigated up both a <strong>13-degree and a 24-degree grassy hill</strong>, slowing down on the steep inclines just as designed. This proved our core concept of traversability mapping was effective in a real-world scenario.</li>
                             </ul>
