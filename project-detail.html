@@ -125,30 +125,21 @@
             .project-detail-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); border: 1px solid var(--border-color); }
 
             /* --- Improved List Styling --- */
-
-            ul, ol {
+            .project-detail-content ul, .project-detail-content ol {
                 margin-top: 1rem;
-                margin-bottom: 1.5rem;
+                margin-bottom: 1.75rem;
                 padding-left: 1.75rem; /* Proper indentation */
+                font-size: 18px; /* Match paragraph font size */
+                line-height: 1.75; /* Match paragraph line height */
             }
-
-            li {
-                font-size: 1rem;
-                color: #374151;
+            .project-detail-content li {
+                color: var(--secondary-text-color);
                 margin-bottom: 0.75rem; /* Adds breathing room between items */
-                line-height: 1.6; /* Improves readability */
             }
-
-            ul {
-                list-style-type: disc;
-            }
-
-            ol {
-                list-style-type: decimal;
-            }
-            
-            li::marker {
-                color: #003a6c; /* Match the marker color to the heading */
+            .project-detail-content ul { list-style-type: disc; }
+            .project-detail-content ol { list-style-type: decimal; }
+            .project-detail-content li::marker {
+                color: var(--accent-color); /* Match the marker color to the theme */
                 font-weight: 500;
             }
 
@@ -203,6 +194,71 @@
                     gap: 16px;
                 }
             }
+
+            /* --- Pipeline Diagram Styles --- */
+            .pipeline-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* Creates the 2-column layout */
+                gap: 24px; /* Matches your .two-images-row gap */
+                margin: 20px 0 1.5rem 0;
+            }
+
+            /* This styles the FontAwesome arrow to act as a flow connector */
+            .pipeline-flow-arrow {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 1rem 0;
+                color: var(--accent-color);
+                font-size: 2rem;
+            }
+
+            .pipeline-output-figure {
+                max-width: 400px;
+                width: 100%;
+                margin: 0 auto 1.75rem auto;
+            }
+            
+            /* --- Vertical Image Fix --- */
+            #rover-hardware-figure {
+                /* Constrain vertical image size */
+                max-width: 450px;  /* Adjust as needed */
+                width: 100%;
+                margin: 20px auto 3.8rem auto;
+                max-height: 500px; /* Set max-height on the FIGURE */
+                overflow: visible; /* Clip the image inside */
+            }
+            #rover-hardware-figure img {
+                object-fit: contain; /* Ensures the whole image is visible */
+                width: auto;
+                height: auto;
+                max-height: 450px; /* Match the figure's max-height */
+                border: none; /* Removed border */
+                box-shadow: none; /* Removed box-shadow */
+            }
+
+
+            /* --- Responsive adjustments for Pipeline & Vertical Image --- */
+            @media (max-width: 600px) {
+                .pipeline-grid {
+                    grid-template-columns: 1fr; /* Stack to 1 column on small screens */
+                    gap: 32px; /* Add more vertical space when stacked */
+                }
+
+                /* Rotate the arrow to point down when stacked */
+                .pipeline-flow-arrow {
+                    transform: rotate(90deg);
+                    margin: 2rem 0;
+                }
+                
+                #rover-hardware-figure {
+                    max-height: 400px; /* Allow a bit less height on mobile */
+                }
+                #rover-hardware-figure img {
+                    max-height: 400px;
+                }
+            }
+
 
         </style>
     </head>
@@ -327,7 +383,7 @@
                     category: 'Robotics',
                     description: "Developed a robust mapping, navigation, and high-level motion planning control system for the Mars rover.",
                     tags: ['Robotics', 'ROS', 'SLAM', 'Navigation', 'Path Planning', 'Sensor Fusion'],
-                    image: 'images/mars-rover/mars-rover-cover.png', // ADD YOUR IMAGE PATH
+                    image: 'images/mars-rover/mars-rover-cover.png', 
                     date: 'JAN 19, 2025',
                     keyInfo: {
                             role: "Semester Project",
@@ -343,12 +399,12 @@
                             
                             <figure class="bdd100k-image" id="rover-hardware-figure">
                                 <img src="images/mars-rover/rover-hardware.png" alt="Rover hardware and sensor components">
-                                <figcaption>The rover's hardware platform, highlighting key components: the ZED stereo camera, LiDAR, and onboard compute unit.</figcaption>
+                                <figcaption>Overview of the Mars Rover setup, highlighting key components: the ZED stereo camera, motor controllers, and the differential drive system.</figcaption>
                             </figure>
 
                             <figure class="bdd100k-image">
                                 <img src="images/mars-rover/system_diagram.png" alt="Rover System Architecture Diagram">
-                                <figcaption>The system architecture: The ZED camera feeds RTAB-Map for 3D SLAM. Our custom Traversability node subscribes to the 2.5D elevation map and converts it to a 2D costmap, which Nav2 uses for path planning.</figcaption>
+                                <figcaption>The system architecture diagram: The ZED camera feeds RTAB-Map for 3D SLAM. Our custom Traversability node subscribes to the 2.5D elevation map and converts it to a 2D occupancy grid, which Nav2 uses for path planning.</figcaption>
                             </figure>
 
                             <h4>The Bridge: Traversability Mapping</h4>
@@ -358,16 +414,62 @@
                                 <li><strong>Pre-process:</strong> Fills small gaps in the map data and applies a <strong>Gaussian filter</strong> to smooth out sensor noise from the ZED camera.</li>
                                 <li><strong>Calculate Steepness:</strong> Uses a <strong>finite difference approximation</strong> to calculate the gradient (slope) at every single point on the map.</li>
                                 <li><strong>Convert & Publish:</strong> Translates these steepness values (e.g., 0° to 45°) into a cost (0-100) and publishes it as an occupancy grid for Nav2 that converts it to costmap internally.</li>
-
                             </ol>
                             <p>The process detailed below effectively translates the 2.5D elevation map into a 2D costmap, enabling the planner to account for terrain steepness.</p>
                             
-                            <figure class="bdd100k-image">
-                                <img src="images/mars-rover/traversability-mapping.drawio.png" alt="Traversability mapping pipeline">
-                                <figcaption>The 6-step traversability pipeline, from the raw RTAB-Map output (a), gap-filling (b), and smoothing (c) to the final steepness visualization (d, e) and occupancy grid (f) sent to Nav2.</figcaption>
+                            <!-- START: NATIVE TRAVERSABILITY PIPELINE -->
+
+                            <!-- Stage 1: Input (Using .two-images-row style) -->
+                            <div class="two-images-row">
+                                <figure class="bdd100k-image">
+                                    <img src="images/mars-rover/rtabmap_pointcloud.png" alt="3D Pointcloud from RTABMap">
+                                    <figcaption><strong>Input A:</strong> 3D Pointcloud map (For Visualization)</figcaption>
+                                </figure>
+                                <figure class="bdd100k-image">
+                                    <img src="images/mars-rover/cropped_steepness_mapping_elevation.png" alt="2.5D Elevation Map from RTABMap">
+                                    <figcaption><strong>Input B: (a)</strong> 2.5D Elevation map (Pipeline Input)</figcaption>
+                                </figure>
+                            </div>
+
+                            <!-- Flow Arrow -->
+                            <div class="pipeline-flow-arrow">
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </div>
+
+                            <!-- Stage 2: Processing (Using .pipeline-grid style) -->
+                            <div class="pipeline-grid">
+                                <figure class="bdd100k-image">
+                                    <img src="images/mars-rover/cropped_steepness_mapping_filled_elevation.png" alt="Gap-filled map">
+                                    <figcaption><strong>(b)</strong> The Elevation map after filling small gaps</figcaption>
+                                </figure>
+                                <figure class="bdd100k-image">
+                                    <img src="images/mars-rover/cropped_steepness_mapping_smoothed_elevation.png" alt="Smoothed map">
+                                    <figcaption><strong>(c)</strong> The filled Elevation map after smoothing</figcaption>
+                                </figure>
+                                <figure class="bdd100k-image">
+                                    <img src="images/mars-rover/cropped_steepness_mapping_steepness.png" alt="Steepness gradient plot">
+                                    <figcaption><strong>(d)</strong> The Steepness Gradient plot (Steepness as Height)</figcaption>
+                                </figure>
+                                <figure class="bdd100k-image">
+                                    <img src="images/mars-rover/cropped_steepness_mapping_steepness_color_smoothed_height.png" alt="Steepness-colored terrain">
+                                    <figcaption><strong>(e)</strong> Steepness-colored terrain (Steepness as Color)</figcaption>
+                                </figure>
+                            </div>
+
+                            <!-- Flow Arrow -->
+                            <div class="pipeline-flow-arrow">
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </div>
+
+                            <!-- Stage 3: Output -->
+                             <figure class="bdd100k-image pipeline-output-figure">
+                                <img src="images/mars-rover/cropped_steepness_mapping_steepness_occupancy_grid.png" alt="Final 2D Costmap">
+                                <figcaption><strong>(f)</strong> Final 2D Occupancy grid (Published to Nav2)</figcaption>
                             </figure>
 
-                            The Nav2 planner computes the optimal path using Dijkstra's algorithm. This path is then fed to a controller, which calculates the appropriate steering and speed commands for the rover's motor controllers.
+                            <!-- END: NATIVE TRAVERSABILITY PIPELINE -->
+
+                            <p>Utilizing Dijkstra's algorithm, the Nav2 planning module generates an optimal path from this costmap. This path is subsequently processed by the controller, which computes and publishes the necessary steering and speed commands to the rover's wheel motor controllers.</p>
 
                             <h4>Impact & Results</h4>
                             <p>We conducted three main tests to validate our system:</p>
