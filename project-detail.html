@@ -364,7 +364,7 @@
                     image: 'images/methods-combined.png', // Main image for the hero section
                     date: 'JUN 16, 2024',
                     keyInfo: {
-                        role: "Bachelor Thesis",
+                        role: "Machine Learning Engineer (Bachelor Thesis)",
                         skills: ["Deep Learning", "Computer Vision", "Data Pipeline Automation", "Model Training & Evaluation", "Object Detection", "Object Tracking", "Semantic Segmentation"],
                         technologies: ["Python", "PyTorch", "OpenCV", "Docker", "Pandas", "NumPy", "Scikit-learn", "Matplotlib", "CUDA"],
                         goal: "Automatically label dashcam footage and train a model to predict pedestrian road-crossing intent.",
@@ -421,7 +421,7 @@
                     image: 'images/mars-rover/mars-rover-cover.png', 
                     date: 'JAN 19, 2025',
                     keyInfo: {
-                            role: "Semester Project",
+                            role: "Robotics & Software Developer (Semester Project)",
                             skills: ["SLAM", "Path Planning", "Sensor Fusion", "Autonomous Navigation", "Obstacle Avoidance", "Team Collaboration", "Hardware Integration"],
                             technologies: ["ROS", "Python", "C++", "Docker", "RTAB-Map", "Nav2", "CUDA", "NVIDIA Isaac-Sim", "ZED Camera", "LiDAR"],
                             goal: "Build a full-stack navigation system for the Mars rover to win the European Rover Challenge.",
@@ -528,27 +528,79 @@
                             <p>As a 5-person team, we successfully integrated complex, production-grade robotics software (ROS2, Nav2, RTAB-Map) and developed a novel C++ node to create a capable autonomous navigation system, laying a solid foundation for the rover's future competition success.</p>
                         `
                 },
-                {
-                    id: 'smart-thermostat',
-                    title: 'IoT Smart Thermostat System',
-                    category: 'Electronics',
-                    description: "Designed a low-power, Wi-Fi-enabled thermostat with a custom Android app for remote control and data logging.",
-                    tags: ['IoT', 'Electronics', 'Firmware (C++)', 'Android', 'Firebase'],
-                    image: 'images/api-project.png', // ADD YOUR IMAGE PATH
-                    date: 'MAY 02, 2025',
+{
+                    id: 'prosthetic-hand-control',
+                    title: 'Semi-Autonomous Prosthetic Hand Control',
+                    category: 'Robotics',
+                    description: "This project aimed to solve a key challenge in prosthetics: high cognitive load. We designed a semi-autonomous system that uses a 3D reconstructed scene to analyze the environment, predict the user's intended grasp, and assist in the correct hand positioning, leaving only the final confirmation to the user's muscle signals.",
+                    image: 'images/prosthetic-hand-control/grasp-big-sphere.jpg', 
+                    date: 'JUNE 12, 2025',
                     keyInfo: {
-                         role: "Hardware & Firmware Developer (Personal Project)",
-                         skills: ["IoT System Design", "PCB Design", "Embedded C++", "Android Development", "Cloud Integration"],
-                         technologies: ["ESP32", "BME280 Sensor", "C++ (Arduino)", "Android (Java/Kotlin)", "Firebase Realtime DB"],
-                         goal: "Create a remotely controllable smart thermostat with data logging capabilities.",
-                         result: "Developed a functional prototype with real-time control and data visualization via app."
+                         role: "Robotics & Software Developer (Semester Project)",
+                         skills: ["Computer Vision", "ROS", "Point Cloud Processing", "3D Scene Reconstruction", "System Integration", "EMG Control"],
+                         technologies: ["C++", "Python", "ROS", "OpenCV", "Point Cloud Library (PCL)", "Intel RealSense", "Mia Hand", "Myo Armband"],
+                         goal: "Reduce the cognitive load of prosthetic use by creating a semi-autonomous system that assists with grasp planning using dual-camera vision.",
+                         result: "Successfully developed and validated key modules, including a robust EMG control interface and a 75% accurate user intent prediction system. The complete modular pipeline was built, providing a solid foundation for future work."
                     },
                     detailContent: `
-                        <h4>Core Challenge & Solution</h4>
-                        <p>This project involved full-stack development, from hardware design to cloud service integration. The primary challenge was creating a low-power device capable of Wi-Fi communication. The hardware utilized an <strong>ESP32 microcontroller</strong> and a BME280 temperature/humidity sensor on a <strong>custom-designed PCB</strong>. Firmware was written in C++ using the Arduino framework, specifically optimized for deep sleep cycles to conserve power.</p>
-                        <img src="https://placehold.co/800x400/8bc34a/202124?text=Custom+PCB+Layout" alt="IoT Thermostat Device PCB">
-                        <h4>Features & Implementation</h4>
-                        <p>Real-time data logging (temperature, humidity) and remote control (setting target temperature) were handled using Google's <strong>Firebase Realtime Database</strong>. This backend was integrated with a native <strong>Android application</strong> (built with Java/Kotlin) which provided the user interface. The firmware implemented a <strong>PID controller</strong> for precise temperature regulation based on sensor readings and user settings. This project demonstrated end-to-end product development skills, combining hardware, firmware, cloud, and mobile development.</p>
+                        <h4>The Challenge: Reducing Mental Fatigue</h4>
+                        <p>Advanced prosthetic hands are powerful, but controlling them can be mentally exhausting. Users often have to manually cycle through grip patterns and precisely align the hand, a process that requires a lot of focus (known as <strong>high cognitive load</strong>). This can lead to frustration and high rates of device abandonment.</p>
+                        <p>Our solution was to develop a <strong>semi-autonomous system</strong>. Instead of the user doing all the work, the system uses computer vision to understand the scene and suggest the best way to grasp an object. The user simply points their arm to the object they want to pick up, the hand automatically positions itself, and they trigger the hand closure with their muscle signals.</p>
+
+                        <h4>How It Works: The Vision-to-Grasp Pipeline</h4>
+                        <p>We built a full-stack robotics system using the <strong>Robot Operating System (ROS)</strong>. The hardware included a <strong>Mia Hand</strong>, a <strong>Myo EMG Armband</strong>, and two <strong>Intel RealSense RGB-D cameras</strong>—one mounted on the user's head and one on the prosthetic hand itself.</p>
+                        <!-- image of the setup -->
+
+                        <p>The control pipeline processed sensor data in real-time:</p>
+                        
+                        <ol>
+                            <li><strong>Dual-Camera Point Cloud Merging:</strong> The system captures point cloud data from both the head and hand cameras. It uses <strong>ArUco markers</strong> to find the position of each camera and merge their data into a single, unified <strong>3D point cloud</strong> of the scene.</li>
+                            
+                            <figure class="bdd100k-image">
+                                <img src="images/prosthetic-hand-control/method-2-merge.jpg" alt="Merged point cloud of the scene">
+                                <figcaption>The merged 3D point cloud from the head and hand cameras, creating a unified scene in RViz (a ROS visualization tool).</figcaption>
+                            </figure>
+
+                            <li><strong>Object Segmentation:</strong> The complete 3D scene is then processed to find distinct items. We used <strong>LCCP algorithm</strong> (3D point cloud segmentation method) to isolate individual objects such as cups, bottles, and utensils or other items in the scene.</li>
+                            
+                            <div class="two-images-row">
+                                <figure>
+                                    <img src="images/prosthetic-hand-control/segmentation-success.jpg" alt="Objects segmented from the background">
+                                    <figcaption>Successful segmentation of multiple objects in a cluttered scene. Each object is assigned a different color.</figcaption>
+                                </figure>
+                                <figure>
+                                    <img src="images/prosthetic-hand-control/intent-prediction.jpg" alt="User intent prediction module">
+                                    <figcaption>The system calculating the user's intended target (green line) by analyzing hand direction (red line) and proximity to objects (orange lines).</figcaption>
+                                </figure>
+                            </div>
+                            
+                            <li><strong>User Intent Prediction:</strong> A key success of the project. To know *which* object to grab, the system intelligently combines three factors: the user's <strong>head gaze direction</strong> (from the head camera), the <strong>hand's pointing direction</strong>, and the <strong>proximity</strong> of the hand to all segmented objects.</li>
+
+                            <li><strong>Grasp Planning:</strong> Once the target object is selected, the system uses the <strong>RANSAC</strong> algorithm to fit a simple geometric shape (like a box, cylinder, or sphere) to it. This simplification makes it easy to automatically determine the best <strong>grasp type</strong> (e.g., palmar vs. lateral) and the required <strong>wrist orientation</strong>.</li>
+                            
+                            <figure class="bdd100k-image">
+                                <img src="images/prosthetic-hand-control/grasp-pose-cuboid.jpg" alt="Grasp pose estimation on a cuboid">
+                                <figcaption>The system correctly identifying the target face of a cuboid (highlighted in green) to plan the optimal grasp pose.</figcaption>
+                            </figure>
+                            
+                            <li><strong>User-in-the-Loop Control:</strong> The system doesn't act on its own. It first autonomously <strong>pre-shapes the hand</strong> and orients the wrist for the predicted grasp. The user then gives the final "grasp" or "release" command using simple muscle flexes, which are read by the <strong>Myo EMG armband</strong>.</li>
+                        </ol>
+
+                        <h4>Results & Key Outcomes</h4>
+                        <p>While integrating a dual-camera system in real-time proved challenging (camera motion could cause point cloud misalignments), several key modules were highly successful:</p>
+                        
+                        <ul>
+                            <li><strong>Successful Intent Prediction:</strong> The user intent prediction module performed exceptionally well, achieving <strong>75% accuracy</strong> in selecting the correct object, even in cluttered scenes.</li>
+                            
+                            <li><strong>Robust EMG & Safety Control:</strong> The EMG control system was a complete success. It perfectly translated user commands for "grasp" and "release" and included a <strong>force-prevention safety feature</strong> that stopped the hand if it detected excessive force, protecting both the object and the prosthesis.</li>
+                        </ul>
+                        
+                        <figure class="bdd100k-image">
+                            <img src="images/prosthetic-hand-control/delicate-grasp.jpg" alt="Mia Hand delicately grasping a soft box">
+                            <figcaption>The final system in action, demonstrating a successful and delicate grasp of a soft box, triggered by the user's EMG signal.</figcaption>
+                        </figure>
+
+                        <p>This project successfully combined <strong>multiple cameras</strong> and <strong>muscle signal control</strong> using ROS (Robot Operating System). We built and tested the system's main parts, from building a 3D map of the scene to predicting what the user wants to grasp. This work provides a solid base for future development in assistive robotics.</p>
                     `,
                 },
                 {
