@@ -41,12 +41,39 @@
                 background-color: var(--background-color); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); z-index: 1000;
             }
             header nav {
-                max-width: min(750px, 95vw); margin: 0 auto; display: flex;
-                justify-content: space-between; align-items: center; width: 100%;
+                max-width: min(750px, 95vw); 
+                margin: 0 auto; 
+                display: flex;
+                justify-content: space-between; 
+                align-items: center; 
+                width: 100%;
             }
-            header a { color: var(--text-color); text-decoration: none; border-radius: 8px; transition: color 0.2s; }
+            header a { 
+                color: var(--text-color); 
+                text-decoration: none; 
+                border-radius: 8px; 
+                transition: color 0.2s; 
+            }
+            header li a {
+                padding: 8px 12px;
+                transition: background-color 0.2s, color 0.2s;
+            }
+            header li a:hover, .social-links a:hover, .theme-switch:hover {
+                background-color: rgba(var(--accent-color-rgb), 0.05);
+                color: var(--accent-color);
+            }
+            [data-theme="dark"] header li a:hover, 
+            [data-theme="dark"] .social-links a:hover, 
+            [data-theme="dark"] .theme-switch:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
             .social-links { display: flex; gap: 15px; }
             .social-links a { padding: 8px; transition: background-color 0.2s, color 0.2s; }
+
+            header ul { display: flex; list-style: none; }
+            header li { display: flex; gap: 15px; align-items: center; }
+
             .header-right { display: flex; align-items: center; }
             .theme-switch {
                 display: flex; align-items: center; justify-content: center; cursor: pointer;
@@ -271,9 +298,17 @@
                     <a href="https://github.com/jonaskoda" title="GitHub" target="_blank"><i class="fa-brands fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/jonas-koditek" title="LinkedIn" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
-                <div class="header-right">
-                    <div class="theme-switch" onclick="toggleTheme()"><span id="theme-icon"></span></div>
-                </div>
+                <ul>
+                    <li>
+                        <a href="index.html#about" title="About">About</a>
+                        <a href="index.html#projects" title="Projects">Projects</a>
+                        <a href="index.html#contact" title="Contact">Contact</a>
+                        <div class="theme-switch" onclick="toggleTheme()">
+                            <span id="theme-icon">
+                                </span>
+                        </div>
+                    </li>
+                </ul>
             </nav>
         </header>
 
