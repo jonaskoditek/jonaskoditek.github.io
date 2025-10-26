@@ -178,11 +178,39 @@
             .bdd100k-image img { margin-bottom: 4px; }
             .bdd100k-image figcaption { font-size: 14px; line-height: 1.5; color: var(--secondary-text-color); margin-top: 0; text-align: center; }
 
-            .two-images-row {display: flex; gap: 24px; justify-content: center; align-items: flex-start; margin: 20px 0 1.5rem 0;}
-            .two-images-row figure {flex: 1 1 0; text-align: center;}
-            .two-images-row img {max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border: 1px solid var(--border-color);}
-            .two-images-row figcaption {font-size: 14px; line-height: 1.5; color: var(--secondary-text-color); margin-top: 0; text-align: center;}
+            .two-images-row {
+                display: flex; 
+                gap: 24px; 
+                justify-content: center; 
+                align-items: flex-start; 
+                margin: 20px 0 1.5rem 0;
+            }
+            .two-images-row figure {
+                flex: 1 1 0; 
+                text-align: center;
+            }
+            .two-images-row img {
+                width: 100%;
+                object-fit: cover;
+                border-radius: 8px; 
+                margin-bottom: 4px; 
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+                border: 1px solid var(--border-color);
+            }
+            .two-images-row figcaption {
+                font-size: 14px; 
+                line-height: 1.5; 
+                color: var(--secondary-text-color); 
+                margin-top: 0; 
+                text-align: center;
+            }
+            .two-images-row.ratio-16-9 img {
+                aspect-ratio: 16 / 9;
+            }
 
+            .two-images-row.ratio-4-3 img {
+                aspect-ratio: 4 / 3;
+            }
             .auto-labeling-pipeline-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin: 20px 0 1.5rem 0; }
             .auto-labeling-pipeline-images figure { text-align: center; }
             .auto-labeling-pipeline-images img { width: 100%; max-width: 320px; border-radius: 8px; margin-bottom: 4px; }
@@ -514,7 +542,7 @@
                                 <li><strong>Hill Climb:</strong> This was the biggest win. The rover successfully mapped and navigated up both a <strong>13-degree and a 24-degree grassy hill</strong>, slowing down on the steep inclines just as designed. This proved our core concept of traversability mapping was effective in a real-world scenario.</li>
                             </ul>
                             
-                            <div class="two-images-row">
+                            <div class="two-images-row ratio-4-3">
                                 <figure class="bdd100k-image">
                                     <img src="images/mars-rover/Test3_13_degree_hill.png" alt="Rover climbing a 13-degree hill">
                                     <figcaption>The rover successfully mapping and climbing a 13-degree hill during outdoor tests.</figcaption>
@@ -545,62 +573,89 @@
                     detailContent: `
                         <h4>The Challenge: Reducing Mental Fatigue</h4>
                         <p>Advanced prosthetic hands are powerful, but controlling them can be mentally exhausting. Users often have to manually cycle through grip patterns and precisely align the hand, a process that requires a lot of focus (known as <strong>high cognitive load</strong>). This can lead to frustration and high rates of device abandonment.</p>
-                        <p>Our solution was to develop a <strong>semi-autonomous system</strong>. Instead of the user doing all the work, the system uses computer vision to understand the scene and suggest the best way to grasp an object. The user simply points their arm to the object they want to pick up, the hand automatically positions itself, and they trigger the hand closure with their muscle signals.</p>
+                        <p>Our solution was to develop a <strong>semi-autonomous system</strong>. The user simply points their arm to the object they want to pick up, the hand automatically positions itself, they reach the object and trigger the hand closure with their muscle signals.</p>
+                        <p>We decided to add an additional camera to the head of the user to <strong>enlarge the field of view</strong> and make it easier to analyze the environment and make the automatic grasping more accurate. In the real life scenario, the camera could be integrated into smart glasses.</p>
 
                         <h4>How It Works: The Vision-to-Grasp Pipeline</h4>
                         <p>We built a full-stack robotics system using the <strong>Robot Operating System (ROS)</strong>. The hardware included a <strong>Mia Hand</strong>, a <strong>Myo EMG Armband</strong>, and two <strong>Intel RealSense RGB-D cameras</strong>—one mounted on the user's head and one on the prosthetic hand itself.</p>
-                        <!-- image of the setup -->
 
-                        <p>The control pipeline processed sensor data in real-time:</p>
-                        
-                        <ol>
-                            <li><strong>Dual-Camera Point Cloud Merging:</strong> The system captures point cloud data from both the head and hand cameras. It uses <strong>ArUco markers</strong> to find the position of each camera and merge their data into a single, unified <strong>3D point cloud</strong> of the scene.</li>
-                            
-                            <figure class="bdd100k-image">
-                                <img src="images/prosthetic-hand-control/method-2-merge.jpg" alt="Merged point cloud of the scene">
-                                <figcaption>The merged 3D point cloud from the head and hand cameras, creating a unified scene in RViz (a ROS visualization tool).</figcaption>
+                        <div class="two-images-row ratio-4-3">
+                            <figure>
+                                <img src="images/prosthetic-hand-control/handmountnocam.jpg" alt="Mia Hand Attached to a Mount">
+                                <figcaption>Mia Hand attached to a mount.</figcaption>
                             </figure>
+                            <figure>
+                                <img src="images/prosthetic-hand-control/hand and emg band (1) (2).jpg" alt="Hand Setup">
+                                <figcaption>Hand setup: Myo Armband, Mia Hand mount, and Intel RealSense camera with an ArUco marker on its back.</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/prosthetic-hand-control/cam positioning.jpg" alt="User intent prediction module">
+                                <figcaption>Participant setup: The head camera detects the ArUco marker on the hand camera.</figcaption>
+                            </figure>
+                        </div>
 
-                            <li><strong>Object Segmentation:</strong> The complete 3D scene is then processed to find distinct items. We used <strong>LCCP algorithm</strong> (3D point cloud segmentation method) to isolate individual objects such as cups, bottles, and utensils or other items in the scene.</li>
+                        <p>The process works as follows:</p>
+
+                        <ol>
+                            <li><strong>Aruco Marker Detection:</strong> The head camera detects the ArUco marker attached to the back of the hand camera</li>
+                            <li><strong>Dual-Camera Point Cloud Merging:</strong> Based on the pose of the detected ArUco marker, the system aligns point clouds from both the head and hand cameras into one pointcloud.</li>
                             
-                            <div class="two-images-row">
+                            <div class="two-images-row ratio-16-9">
                                 <figure>
-                                    <img src="images/prosthetic-hand-control/segmentation-success.jpg" alt="Objects segmented from the background">
-                                    <figcaption>Successful segmentation of multiple objects in a cluttered scene. Each object is assigned a different color.</figcaption>
+                                    <img src="images/prosthetic-hand-control/pc-one-camera.png" alt="Image from one camera">
+                                    <figcaption>The image of the scene from the hand camera.</figcaption>
                                 </figure>
                                 <figure>
-                                    <img src="images/prosthetic-hand-control/intent-prediction.jpg" alt="User intent prediction module">
-                                    <figcaption>The system calculating the user's intended target (green line) by analyzing hand direction (red line) and proximity to objects (orange lines).</figcaption>
+                                    <img src="images/prosthetic-hand-control/pc-merged.png" alt="User intent prediction module">
+                                    <figcaption>The merged 3D point cloud from the head and hand cameras, creating a unified scene.</figcaption>
+                                </figure>
+                            </div>
+
+                            <li><strong>Object Segmentation:</strong> The merged pointcloud is then processed to find distinct items. We used <strong>LCCP algorithm</strong> (3D point cloud segmentation method) to isolate individual objects such as cups, bottles, and utensils or other items in the scene.</li>
+                            
+                            <div class="two-images-row ratio-16-9">
+                                <figure>
+                                    <img src="images/prosthetic-hand-control/object-segmentation-orig.png" alt="The original image of the scene">
+                                    <figcaption>The original image of the scene.</figcaption>
+                                </figure>
+                                <figure>
+                                    <img src="images/prosthetic-hand-control/object-segmentation-pc.png" alt="The segmented pointcloud">
+                                    <figcaption>The segmented pointcloud. Each segmented object is highlighted with different color. Red spheres represent the center of each object.</figcaption>
                                 </figure>
                             </div>
                             
-                            <li><strong>User Intent Prediction:</strong> A key success of the project. To know *which* object to grab, the system intelligently combines three factors: the user's <strong>head gaze direction</strong> (from the head camera), the <strong>hand's pointing direction</strong>, and the <strong>proximity</strong> of the hand to all segmented objects.</li>
+                            <li><strong>Target Estimation:</strong> To know which object to grasp, the system combines three factors: the user's <strong>head gaze direction</strong> (from the head camera), the <strong>hand's pointing direction</strong>, and the <strong>proximity</strong> of the hand to all segmented objects.</li>
 
-                            <li><strong>Grasp Planning:</strong> Once the target object is selected, the system uses the <strong>RANSAC</strong> algorithm to fit a simple geometric shape (like a box, cylinder, or sphere) to it. This simplification makes it easy to automatically determine the best <strong>grasp type</strong> (e.g., palmar vs. lateral) and the required <strong>wrist orientation</strong>.</li>
-                            
-                            <figure class="bdd100k-image">
-                                <img src="images/prosthetic-hand-control/grasp-pose-cuboid.jpg" alt="Grasp pose estimation on a cuboid">
-                                <figcaption>The system correctly identifying the target face of a cuboid (highlighted in green) to plan the optimal grasp pose.</figcaption>
+                            <figure class="bdd100k-image pipeline-output-figure">
+                                <img src="images/prosthetic-hand-control/pointing_selection.jpg" alt="Target selection visualization">
+                                <figcaption>One of the three methods used for target selection. The distance to the closest object is highlighted in green.</figcaption>
                             </figure>
+
+                            <li><strong>Geometric Model Fitting:</strong> Once the target object is selected, the system uses the <strong>RANSAC</strong> algorithm to fit a simple geometric shape (box, cylinder, or sphere). The best fitting shape is selected.</li>
                             
-                            <li><strong>User-in-the-Loop Control:</strong> The system doesn't act on its own. It first autonomously <strong>pre-shapes the hand</strong> and orients the wrist for the predicted grasp. The user then gives the final "grasp" or "release" command using simple muscle flexes, which are read by the <strong>Myo EMG armband</strong>.</li>
+                            <div class="two-images-row ratio-16-9">
+                                <figure class="bdd100k-image">
+                                    <img src="images/prosthetic-hand-control/target-sel-orig.png" alt="Scene with a popcorn box.">
+                                    <figcaption>Scene with a popcorn box.</figcaption>
+                                </figure>
+                                <figure class="bdd100k-image">
+                                    <img src="images/prosthetic-hand-control/target-sel.png" alt="Grasp pose estimation on a cuboid">
+                                    <figcaption>The segmented popcorn box (red) together with a fitted box geometric shape (yellow) and the highlighted side of the box meant for grasping (green).</figcaption>
+                                </figure>
+                            </div>
+
+                            <li><strong>Grasp Pose Selection:</strong> Based on the best fitting shape, the appropriate <strong>grasp type</strong> and <strong>wrist orientation</strong> is selected. The appropriate control commands are then sent to the prosthetic hand to automatically adjust its position.</li>
+
+                            <li><strong>EMG Signal, Hand Closure:</strong> The user then gives the final "grasp" or "release" command using simple muscle flexes, which are read by the <strong>Myo EMG armband</strong>.</li>
                         </ol>
 
                         <h4>Results & Key Outcomes</h4>
-                        <p>While integrating a dual-camera system in real-time proved challenging (camera motion could cause point cloud misalignments), several key modules were highly successful:</p>
-                        
-                        <ul>
-                            <li><strong>Successful Intent Prediction:</strong> The user intent prediction module performed exceptionally well, achieving <strong>75% accuracy</strong> in selecting the correct object, even in cluttered scenes.</li>
-                            
-                            <li><strong>Robust EMG & Safety Control:</strong> The EMG control system was a complete success. It perfectly translated user commands for "grasp" and "release" and included a <strong>force-prevention safety feature</strong> that stopped the hand if it detected excessive force, protecting both the object and the prosthesis.</li>
-                        </ul>
-                        
-                        <figure class="bdd100k-image">
-                            <img src="images/prosthetic-hand-control/delicate-grasp.jpg" alt="Mia Hand delicately grasping a soft box">
-                            <figcaption>The final system in action, demonstrating a successful and delicate grasp of a soft box, triggered by the user's EMG signal.</figcaption>
-                        </figure>
+                        <p>This project successfully combined <strong>multiple cameras</strong> and <strong>muscle signal control</strong>. We built and tested the system's main parts, from building a 3D map of the scene to predicting what object does the user want to grasp. This work provides a solid base for future development in assistive robotics.</p>
 
-                        <p>This project successfully combined <strong>multiple cameras</strong> and <strong>muscle signal control</strong> using ROS (Robot Operating System). We built and tested the system's main parts, from building a 3D map of the scene to predicting what the user wants to grasp. This work provides a solid base for future development in assistive robotics.</p>
+                        <figure class="bdd100k-image pipeline-output-figure">
+                            <img src="images/prosthetic-hand-control/safety-force.jpg" alt="Mia Hand delicately grasping a soft box">
+                            <figcaption>The final system in action, demonstrating a successful grasp of a soft box, triggered by the user's EMG signal.</figcaption>
+                        </figure>
                     `,
                 },
                 {
