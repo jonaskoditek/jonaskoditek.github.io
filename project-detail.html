@@ -659,23 +659,30 @@
                     `,
                 },
                 {
-                    id: 'ai-chat-service',
-                    title: 'GPT-Powered Customer Service Bot',
-                    category: 'Software Engineering',
-                    description: "Developed a scalable, full-stack microservice for real-time customer support using the Gemini API.",
-                    tags: ['Full-Stack', 'Node.js', 'API Integration', 'Cloud Functions', 'Gemini API'],
-                    image: 'images/LLM-proj.png', // ADD YOUR IMAGE PATH
-                    date: 'MAR 20, 2025',
+                    id: 'parking-sensor',
+                    title: 'Parking Sensor',
+                    category: 'Electronics',
+                    description: "Developed an ultrasonic parking sensor system with LED display and speaker.",
+                    tags: ['Electronics', 'Embedded Systems', 'C', 'Microcontrollers', '3D Printing', 'Circuit Design'],
+                    image: 'images/parking-sensor/final-product.jpg',
+                    date: 'MAY 20, 2023',
                      keyInfo: {
-                         role: "Full-Stack Developer (Personal Project)",
-                         skills: ["API Integration", "Backend Development", "Cloud Functions", "Natural Language Processing", "Scalability"],
-                         technologies: ["Node.js", "Express.js", "Google Cloud Functions", "Gemini API", "PostgreSQL", "React"],
-                         goal: "Build a scalable microservice providing AI-powered customer support.",
-                         result: "Deployed a functional chatbot service capable of handling concurrent requests."
+                         role: "Electronics Engineer (Semestral Project)",
+                         skills: ["Circuit Design", "Microcontroller Programming", "Sensor Integration", "Prototyping"],
+                         technologies: ["ESP32", "Ultrasonic Sensor", "LED Display", "3D Printing", "PlatformIO", "C"],
+                         goal: "Develop a parking sensor system.",
+                         result: "Successfully built and tested a functional parking sensor that was presented at the university fair for electronics projects."
                     },
                     detailContent: `
-                        <h4>Core Challenge & Solution</h4>
-                        <p>The goal was to create a robust backend service capable of handling high-volume, concurrent customer support requests using a large language model. A microservice architecture was chosen for scalability. The backend was built using <strong>Node.js</strong> and deployed on <strong>Google Cloud Functions</strong> for serverless execution. It integrates the <strong>Gemini API</strong> for natural language understanding and response generation, offering human-like, 24/7 support capabilities.</p>
+                        <h4>Introduction to the Problem</h4>
+                        <p>As a final semester project, I aimed to develop a parking sensor system. The electronics excites me as you can directly see the impact of your work in the real world. Not just as an output on a screen. To </p>
+                        Implementation
+                        - list parts
+                        - describe the ultrasonic sensor principle
+                        - show and describe the circuit diagram
+                        - show the 3D printed case
+                        Result
+
                         <img src="https://placehold.co/800x400/ffc107/202124?text=Chat+Interface+Design" alt="AI Chatbot Interface">
                         <h4>Architecture & Features</h4>
                         <p>To ensure API stability and manage costs, a simple <strong>caching layer</strong> (in-memory or Redis-based) and <strong>rate limiting</strong> were implemented within the Node.js application. User conversation history or relevant context was stored in a <strong>PostgreSQL</strong> database to provide more relevant responses over time. The frontend interface, built with <strong>React</strong>, communicates with the backend via RESTful API endpoints. This project demonstrates proficiency in modern web architecture, cloud deployment, and integrating third-party AI services.</p>
