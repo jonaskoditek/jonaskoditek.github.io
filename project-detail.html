@@ -675,17 +675,65 @@
                     },
                     detailContent: `
                         <h4>Introduction to the Problem</h4>
-                        <p>As a final semester project, I aimed to develop a parking sensor system. The electronics excites me as you can directly see the impact of your work in the real world. Not just as an output on a screen. To </p>
-                        Implementation
-                        - list parts
-                        - describe the ultrasonic sensor principle
-                        - show and describe the circuit diagram
-                        - show the 3D printed case
-                        Result
+                        <p>As a final semester project, I aimed to develop a <strong>parking sensor system</strong>. The exciting thing about electronics is that you can directly see the impact of your work in the real world. Not just as an output on a screen.</p>
+                        <p>The parking sensor in cars works on a simple principle: it uses an <strong>ultrasonic sensor</strong> to measure the distance to the nearest obstacle behind the car. Based on this distance, it provides feedback to the driver through visual and auditory signals.</p>
 
-                        <img src="https://placehold.co/800x400/ffc107/202124?text=Chat+Interface+Design" alt="AI Chatbot Interface">
-                        <h4>Architecture & Features</h4>
-                        <p>To ensure API stability and manage costs, a simple <strong>caching layer</strong> (in-memory or Redis-based) and <strong>rate limiting</strong> were implemented within the Node.js application. User conversation history or relevant context was stored in a <strong>PostgreSQL</strong> database to provide more relevant responses over time. The frontend interface, built with <strong>React</strong>, communicates with the backend via RESTful API endpoints. This project demonstrates proficiency in modern web architecture, cloud deployment, and integrating third-party AI services.</p>
+                        <h4>Implementation Details</h4>
+                        <p>The core of the system revolves around an <strong>ultrasonic sensor</strong> (HC-SR04).</p>
+
+                        <figure class="bdd100k-image pipeline-output-figure">
+                            <img src="images/parking-sensor/senzor.png" alt="Ultrasonic Sensor">
+                            <figcaption>The front side of the ultrasonic sensor (HC-SR04).</figcaption>
+                        </figure>
+
+                        <p>The ultrasonic sensor works by emitting a high-frequency sound wave from the transmitter (T) and receiving the reflected wave by the receiver (R). The principle can be described in three steps:</p>
+                        <ol>
+                            <li>The transmitter emits a high-frequency sound wave (40 kHz).</li>
+                            <li>The sound wave travels through the air until it hits an obstacle and is reflected back.</li>
+                            <li>The receiver detects the reflected sound wave.</li>
+                        </ol>
+
+                        <p>From the measured time between sending and receiving the sound wave, we can calculate the distance to the obstacle using the formula:</p>
+                        <p><em>Distance = (Speed of Sound in Air * Time) / 2</em></p>
+                        <p>The division by 2 accounts for the round trip of the sound wave.</p>
+
+                        <figure class="bdd100k-image pipeline-output-figure">
+                            <img src="images/parking-sensor/funkce.png" alt="Ultrasonic Sensor Functionality">
+                            <figcaption>The principle of operation of the ultrasonic sensor.</figcaption>
+                        </figure>
+
+                        <p>The whole system is controlled by an <strong>ESP32 microcontroller</strong> programmed in C. It handles the ultrasonic sensor data, calculates the distance to the obstacle, and communicates with the LED display and the speaker. The LED display shows the distance to the obstacle in centimeters. The speaker provides auditory feedback in the form of beeping. The closer the object is, the higher the beeping frequency.</p>
+
+                        <figure class="bdd100k-image">
+                            <img src="images/parking-sensor/schema.png" alt="Circuit Diagram">
+                            <figcaption>The circuit diagram of the ultrasonic sensor system.</figcaption>
+                        </figure>
+
+                        <p>The ESP32 microcontroller is powered by a USB-C connection. The ultrasonic sensor uses a voltage divider to reduce the voltage from 5V to 3.3V, making it compatible with the ESP32 microcontroller. The speaker requires a higher current than the ESP32 can provide, therefore it is powered by 5V source. The ESP32 controlls the speaker through the pin 21, using a transistor as a switch to turn the speaker on and off.</p>
+
+                        <p>The casing for the whole system was designed in the Fusion 360 CAD software and 3D printed.</p>
+
+                        <figure class="bdd100k-image pipeline-output-figure">
+                            <img src="images/parking-sensor/parkovaci_senzor_3D_model.png" alt="3D Model">
+                            <figcaption>3D model of the case for the ultrasonic sensor system.</figcaption>
+                        </figure>
+
+                        <p>As the next step, the entire circuit was connected using wires and a small breadboard.</p>
+
+                        <figure class="bdd100k-image pipeline-output-figure">
+                            <img src="images/parking-sensor/open.jpg" alt="Inside view of the parking sensor">
+                            <figcaption>Inside view of the parking sensor, ESP32 (black) together with resistors, diode and wires connected using a breadboard.</figcaption>
+                        </figure>
+
+                        After assembling the components, the final version of the parking sensor can be seen below:
+
+                        <figure class="bdd100k-image pipeline-output-figure">
+                            <img src="images/parking-sensor/final-product.jpg" alt="Final version of the parking sensor">
+                            <figcaption>Final version of the parking sensor.</figcaption>
+                        </figure> 
+
+                        <h4>Impact & Results</h4>
+                        <p></p>
                     `,
                 },
             ];
