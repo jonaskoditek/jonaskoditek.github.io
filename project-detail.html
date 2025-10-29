@@ -664,7 +664,7 @@
                     category: 'Electronics',
                     description: "Developed an ultrasonic parking sensor system with LED display and speaker.",
                     tags: ['Electronics', 'Embedded Systems', 'C', 'Microcontrollers', '3D Printing', 'Circuit Design'],
-                    image: 'images/parking-sensor/final-product.jpg',
+                    image: 'images/parking-sensor/final_up.jpg',
                     date: 'MAY 20, 2023',
                      keyInfo: {
                          role: "Electronics Engineer (Semestral Project)",
@@ -675,57 +675,60 @@
                     },
                     detailContent: `
                         <h4>Introduction to the Problem</h4>
-                        <p>As a final semester project, I aimed to develop a <strong>parking sensor system</strong>. The exciting thing about electronics is that you can directly see the impact of your work in the real world. Not just as an output on a screen.</p>
-                        <p>The parking sensor in cars works on a simple principle: it uses an <strong>ultrasonic sensor</strong> to measure the distance to the nearest obstacle behind the car. Based on this distance, it provides feedback to the driver through visual and auditory signals.</p>
+                        <p>For my final semester project, I developed a <strong>parking sensor system</strong>. The exciting thing about electronics is that you can directly see the impact of your work in the real world. Not just as an output on a screen.</p>
+                        <p>The system mimics the function of a real car's parking sensor: it uses an <strong>ultrasonic sensor</strong> to measure distance and provides escalating visual and auditory feedback to the driver as they approach an obstacle.</p>
 
                         <h4>Implementation Details</h4>
-                        <p>The core of the system revolves around an <strong>ultrasonic sensor</strong> (HC-SR04).</p>
+                        <p>The core of the system is the <strong>ultrasonic sensor</strong> (HC-SR04), which measures distance using sound waves.</p>
 
                         <figure class="bdd100k-image pipeline-output-figure">
                             <img src="images/parking-sensor/senzor.png" alt="Ultrasonic Sensor">
-                            <figcaption>The front side of the ultrasonic sensor (HC-SR04).</figcaption>
+                            <figcaption>The ultrasonic sensor (HC-SR04) with its transmitter (T) and receiver (R).</figcaption>
                         </figure>
 
-                        <p>The ultrasonic sensor works by emitting a high-frequency sound wave from the transmitter (T) and receiving the reflected wave by the receiver (R). The principle can be described in three steps:</p>
-                        <ol>
-                            <li>The transmitter emits a high-frequency sound wave (40 kHz).</li>
-                            <li>The sound wave travels through the air until it hits an obstacle and is reflected back.</li>
-                            <li>The receiver detects the reflected sound wave.</li>
-                        </ol>
-
-                        <p>From the measured time between sending and receiving the sound wave, we can calculate the distance to the obstacle using the formula:</p>
-                        <p><em>Distance = (Speed of Sound in Air * Time) / 2</em></p>
-                        <p>The division by 2 accounts for the round trip of the sound wave.</p>
+                        <p>The ultrasonic sensor works by emitting a high-frequency sound wave from the transmitter (T) and receiving the reflected wave by the receiver (R). The time it takes for the sound wave to reach the obstacle and return is used to calculate the distance:</p>
+                        
+                        <p><em>Distance = (Speed of Sound * Time) / 2</em></p>
+                        
+                        <p>The division by 2 accounts for the sound wave's round trip (out and back).</p>
 
                         <figure class="bdd100k-image pipeline-output-figure">
                             <img src="images/parking-sensor/funkce.png" alt="Ultrasonic Sensor Functionality">
                             <figcaption>The principle of operation of the ultrasonic sensor.</figcaption>
                         </figure>
 
-                        <p>The whole system is controlled by an <strong>ESP32 microcontroller</strong> programmed in C. It handles the ultrasonic sensor data, calculates the distance to the obstacle, and communicates with the LED display and the speaker. The LED display shows the distance to the obstacle in centimeters. The speaker provides auditory feedback in the form of beeping. The closer the object is, the higher the beeping frequency.</p>
+                        <p>The whole system is controlled by the <strong>ESP32 microcontroller</strong> programmed in C (using PlatformIO). It is responsible for triggering the ultrasonic sensor, calculating the distance, and controlling the user feedback.</p>
+                        
+                        <p>I designed the system to provide two forms of real-time feedback:</p>
+                        <ul>
+                            <li><strong>Visual Feedback:</strong> An <strong>LED display</strong> clearly shows the distance to the obstacle in centimeters.</li>
+                            <li><strong>Auditory Feedback:</strong> A <strong>speaker</strong> emits a beeping tone that increases in frequency (beeps faster) as the obstacle gets closer.</li>
+                        </ul>
 
                         <figure class="bdd100k-image">
                             <img src="images/parking-sensor/schema.png" alt="Circuit Diagram">
                             <figcaption>The circuit diagram of the ultrasonic sensor system.</figcaption>
                         </figure>
 
-                        <p>The ESP32 microcontroller is powered by a USB-C connection. The ultrasonic sensor uses a voltage divider to reduce the voltage from 5V to 3.3V, making it compatible with the ESP32 microcontroller. The speaker requires a higher current than the ESP32 can provide, therefore it is powered by 5V source. The ESP32 controlls the speaker through the pin 21, using a transistor as a switch to turn the speaker on and off.</p>
+                        <p>The circuit design addressed two key integration challenges:
+                            <br><strong>1. Logic Level Shifting:</strong> The ESP32 operates at 3.3V, but the HC-SR04 sensor's echo pin outputs 5V. I used a simple <strong>voltage divider</strong> to safely step down the signal for the ESP32.
+                            <br><strong>2. High-Current Load:</strong> The speaker requires more current than the ESP32's GPIO pin can safely source. I solved this by using an <strong>NPN transistor</strong> as a low-side switch, allowing the microcontroller's 3.3V pin to control the 5V-powered speaker.</p>
 
-                        <p>The casing for the whole system was designed in the Fusion 360 CAD software and 3D printed.</p>
+                        <p>Finally, I designed a custom enclosure in <strong>Fusion 360</strong> and <strong>3D printed</strong> it to house all the components in a clean, compact prototype.</p>
 
                         <figure class="bdd100k-image pipeline-output-figure">
                             <img src="images/parking-sensor/parkovaci_senzor_3D_model.png" alt="3D Model">
-                            <figcaption>3D model of the case for the ultrasonic sensor system.</figcaption>
+                            <figcaption>3D model of the custom-designed enclosure.</figcaption>
                         </figure>
 
-                        <p>As the next step, the entire circuit was connected using wires and a small breadboard.</p>
+                        <p>The components were assembled using a small breadboard and point-to-point wiring inside the 3D-printed case.</p>
 
                         <figure class="bdd100k-image pipeline-output-figure">
                             <img src="images/parking-sensor/open.jpg" alt="Inside view of the parking sensor">
-                            <figcaption>Inside view of the parking sensor, ESP32 (black) together with resistors, diode and wires connected using a breadboard.</figcaption>
+                            <figcaption>Inside view: ESP32, breadboard, and wiring harness.</figcaption>
                         </figure>
 
-                        After assembling the components, the final version of the parking sensor can be seen below:
+                        <p>The assembled prototype is a self-contained unit powered by a single USB-C connection.</p>
 
                         <figure class="bdd100k-image pipeline-output-figure">
                             <img src="images/parking-sensor/final-product.jpg" alt="Final version of the parking sensor">
@@ -733,7 +736,13 @@
                         </figure> 
 
                         <h4>Impact & Results</h4>
-                        <p></p>
+                        <p>The project successfully resulted in a <strong>fully functional and tested parking sensor system</strong> that delivers accurate, real-time distance feedback.</p>
+                        <p>This project was an opportunity to develop a comprehensive skill set:</p>
+                        <ul>
+                            <li><strong>Full Product Cycle:</strong> From initial concept and <strong>circuit design</strong> to <strong>microcontroller programming</strong> (C), <strong>CAD modeling</strong> (Fusion 360), and final <strong>3D-printed fabrication</strong>.</li>
+                            <li><strong>Systems Integration:</strong> Solving real-world electronics challenges, including interfacing components with different logic levels (3.3V/5V) and driving higher-current loads (like a speaker) from a microcontroller.</li>
+                            <li><strong>Public Showcase:</strong> The completed sensor was presented at the university fair for electronics projects.</li>
+                        </ul>
                     `,
                 },
             ];
