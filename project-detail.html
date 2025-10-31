@@ -556,7 +556,7 @@
                             <p>As a 5-person team, we successfully integrated complex, production-grade robotics software (ROS2, Nav2, RTAB-Map) and developed a novel C++ node to create a capable autonomous navigation system, laying a solid foundation for the rover's future competition success.</p>
                         `
                 },
-{
+                {
                     id: 'prosthetic-hand-control',
                     title: 'Semi-Autonomous Prosthetic Hand Control',
                     category: 'Robotics',
@@ -657,6 +657,7 @@
                             <figcaption>The final system in action, demonstrating a successful grasp of a soft box, triggered by the user's EMG signal.</figcaption>
                         </figure>
                     `,
+
                 },
                 {
                     id: 'parking-sensor',
@@ -668,8 +669,8 @@
                     date: 'MAY 20, 2023',
                      keyInfo: {
                          role: "Electronics Engineer (Semestral Project)",
-                         skills: ["Circuit Design", "Microcontroller Programming", "Sensor Integration", "Prototyping"],
-                         technologies: ["ESP32", "Ultrasonic Sensor", "LED Display", "3D Printing", "PlatformIO", "C"],
+                         skills: ["Circuit Design", "Microcontroller Programming", "Sensor Integration", "Prototyping", "3D Modeling", "Electronics"],
+                         technologies: ["ESP32", "Ultrasonic Sensor", "LED Display", "3D Printing", "PlatformIO", "C", "Breadboard", "Transistors", "Voltage Dividers"],
                          goal: "Develop a parking sensor system.",
                          result: "Successfully built and tested a functional parking sensor that was presented at the university fair for electronics projects."
                     },
@@ -743,6 +744,60 @@
                             <li><strong>Systems Integration:</strong> Solving real-world electronics challenges, including interfacing components with different logic levels (3.3V/5V) and driving higher-current loads (like a speaker) from a microcontroller.</li>
                             <li><strong>Public Showcase:</strong> The completed sensor was presented at the university fair for electronics projects.</li>
                         </ul>
+                    `,
+                },
+                {
+                    id: 'packet-sending-protocol',
+                    title: 'Reliable File Transfer over a custom Protocol',
+                    category: 'Computer Networking',
+                    description: "Developed a custom network protocol on top of UDP to ensure reliable, in-order file transfer, implementing core features of TCP like error checking, packet sequencing, and flow control.",
+                    tags: ['Networking', 'Python', 'UDP', 'Sockets', 'Protocol Design', 'Distributed Systems'],
+                    image: 'images/packet-protocol/custom-protocol.png',
+                    date: 'JAN 10, 2024',
+                    keyInfo: {
+                        role: "Software Developer (Semester Project)",
+                        skills: ["Network Protocol Design", "Socket Programming", "Error Control (CRC32)", "Flow Control (Sliding Window)", "Data Integrity (MD5)"],
+                        technologies: ["Python", "UDP Sockets", "hashlib", "crcmod"],
+                        goal: "Build a reliable data transfer mechanism on top of the inherently unreliable UDP protocol to ensure complete and accurate file transfer.",
+                        result: "Successfully implemented a sliding window protocol capable of transferring complete files with error detection, ACK-based re-transmission, and final integrity verification."
+                    },
+                    detailContent: `
+                        <h4>Core Challenge: Building Reliability from Scratch</h4>
+                        <p>While TCP is the standard for reliable data transfer, this project aimed to build the reliability layer manually as part of a semester project. Using the fast but 'fire-and-forget' <strong>UDP protocol</strong>, the goal was to create a custom sender-receiver system that could transfer a whole file and guarantee it arrived <strong>uncorrupted and in the correct order</strong>, even on an imperfect network.</p>
+                                
+                        <h4>Implementation Details</h4>
+                        <p>The solution involved creating a custom packet structure and a state-managing sender and receiver.</p>
+                        
+                        <ol>
+                            <li><strong>Packetizing & Error Detection:</strong> The sender first breaks the source file into small, sendable chunks (packets). Each packet is prefixed with an 8-byte packet ID (for ordering the packets) and appended with a <strong>CRC32 checksum</strong> ensuring the data were not corrupted during transmission.</li>
+                            
+                            <figure class="bdd100k-image pipeline-output-figure">
+                                <img src="images/packet-protocol/packet2.png" alt="Packet Structure">
+                                <figcaption>Custom packet structure with ID, data, and 32-bit CRC checksum.</figcaption>
+                            </figure>
+
+                            <li><strong>Sequencing & Reassembly:</strong> when the receiver receives a packet, it first validates its CRC32 checksum. If valid, it uses the packet ID as an index to place the data in its correct position in a list. This makes it easy to correctly sort the packets, even if they arrive out of order.</li>
+                            
+                            <li><strong>ACKs, Timeouts & Re-transmission:</strong> For every piece of data the sender transmits, the receiver sends back an <strong>ACK</strong> message to confirm it arrived safely. The sender maintains a list of all packets it has sent. If an ACK doesn't arrive within a set <strong>timeout</strong>, the sender assumes the packet (or its ACK) was lost and automatically re-sends the packet again.</li>
+                            
+                            <li><strong>Flow Control (Sliding Window):</strong> Instead of sending one packet and waiting for confirmation before sending the next (like 'stop-and-wait'), the sender can send several packets at once, keeping a "window" of active packets. As the receiver confirms it got a packet, the sender "slides" its window forward, immediately sending a new packet to keep the data flowing without unnecessary pauses. This allows for continuous transmission and much faster file transfers.</li>
+
+                            <figure class="bdd100k-image pipeline-output-figure">
+                                <img src="images/packet-protocol/selectiverepeatlostframe.png" alt="Sliding Window in action">
+                                <figcaption>Sliding window approach in action. The packet number 2 is lost and then re-sent.</figcaption>
+                            </figure>
+                            <!-- https://reaksmeylim.github.io/selectiverepeat.html -->
+
+                            <li><strong>Final File Integrity:</strong> To ensure the transferred file is 100% identical to the original, both the sender and receiver compute MD5 hashes of their respective files and compare the two to guarantee the received file is identical to the sent one.</li>
+
+                            <figure class="bdd100k-image pipeline-output-figure">
+                                <img src="images/packet-protocol/" alt="MD5 Hash Process">
+                                <figcaption>MD5 Hash process, taking in stream of bytes (text or image) and producing a fixed-size hash value.</figcaption>
+                            </figure>
+                        </ol>
+                        
+                        <h4>Impact & Results</h4>
+                        <p>This project was a deep dive into the practical challenges of network protocol design. The result was a robust Python application that successfully implements the core logic of TCP (reliability, sequencing, flow control) from the ground up. It demonstrates a foundational understanding of how data moves reliably across distributed systems, which is the bedrock for all high-level web and cloud applications.</p>
                     `,
                 },
             ];
