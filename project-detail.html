@@ -752,7 +752,7 @@
                     category: 'Computer Networking',
                     description: "Developed a custom network protocol on top of UDP to ensure reliable, in-order file transfer, implementing core features of TCP like error checking, packet sequencing, and flow control.",
                     tags: ['Networking', 'Python', 'UDP', 'Sockets', 'Protocol Design', 'Distributed Systems'],
-                    image: 'images/packet-protocol/custom-protocol.png',
+                    image: 'images/packet-protocol/131641-ORWREU-169.jpg',
                     date: 'JAN 10, 2024',
                     keyInfo: {
                         role: "Software Developer (Semester Project)",
@@ -791,13 +791,66 @@
                             <li><strong>Final File Integrity:</strong> To ensure the transferred file is 100% identical to the original, both the sender and receiver compute MD5 hashes of their respective files and compare the two to guarantee the received file is identical to the sent one.</li>
 
                             <figure class="bdd100k-image pipeline-output-figure">
-                                <img src="images/packet-protocol/" alt="MD5 Hash Process">
-                                <figcaption>MD5 Hash process, taking in stream of bytes (text or image) and producing a fixed-size hash value.</figcaption>
+                                <img src="images/packet-protocol/MD5.png" alt="MD5 Hash Process">
+                                <figcaption>MD5 Hash process, taking in stream of bytes (text or image) and producing a 32 character hash value.</figcaption>
                             </figure>
                         </ol>
                         
                         <h4>Impact & Results</h4>
-                        <p>This project was a deep dive into the practical challenges of network protocol design. The result was a robust Python application that successfully implements the core logic of TCP (reliability, sequencing, flow control) from the ground up. It demonstrates a foundational understanding of how data moves reliably across distributed systems, which is the bedrock for all high-level web and cloud applications.</p>
+                        <p>This project was a deep dive into the network protocol design. The final application implements the core logic of TCP (reliability, sequencing, flow control) from the ground up. This project made it possible to get a hands-on experience and a deep understanding of how data moves reliably across distributed systems, which is the bedrock for all high-level web and cloud applications.</p>
+                    `,
+                },
+                {
+                    id: 'pcb-adc-design',
+                    title: '4-Layer ADC Module for Rocketry Ground Station',
+                    category: 'Electronics & PCB Design',
+                    description: "Designed a 4-layer, high-precision analog-to-digital converter (ADC) module for a ground computer used in rocket telemetry.",
+                    tags: ['PCB Design', 'KiCad', 'Electronics', 'Schematic Capture', 'Signal Integrity', 'Aerospace'],
+                    image: 'images/adc-card/3d-model.png', 
+                    date: 'FEB 23, 2024',
+                    keyInfo: {
+                        role: "Electronics Engineer",
+                        skills: ["Schematic Capture", "PCB Layout", "High-Density Routing", "Modular System Design"],
+                        technologies: ["KiCad (eeschema & pcbnew)", "DIN 41612 Connectors", "SamacSys Libraries"],
+                        goal: "Design a robust ADC module for the 'New Instrumentation System' (NIS) ground computer, capable of capturing high-precision analog data in an electrically noisy environment.",
+                        result: "Delivered the complete, production-ready KiCad project (schematic, layout, and Gerbers) for the ADC module."
+                    },
+                    detailContent: `
+                        <h4>Core Challenge: Designing for Reliability and Precision</h4>
+                        <p>When being in the CTU Space Research team, I was tasked with designing a component for the rocket's ground computer: the <strong>Analog-to-Digital Converter (ADC) module</strong>. The module was not a standalone gadget; it was a module for the "New Instrumentation System" (NIS), a custom-built, backplane-based data acquisition computer.</p>
+                        <p>The core challenge was twofold: 1) The board had to be <strong>highly reliable</strong>, therefore a robust DIN 41612 connector was chosen to plug into the system's backplane. 2) The board had to capture *clean, high-precision analog signals* (from sensors like load cells and pressure transducers) in an environment filled with "noisy" digital electronics. A simple 2-layer PCB would not be reliable enough.</p>
+
+                        <h4>Implementation Details</h4>
+                        <p>Given the component list and system requirements, I performed the whole design in KiCad.</p>
+                        
+                        <ol>
+                            <li><strong>Schematic Capture:</strong> Initially, I imported the components into a hierarchical schematic in KiCad's schematic editor. This involved logically organizing the design into multiple sub-sheets, including dedicated sheets for the analog input protection circuits and the main backplane connector.</li>
+
+                            <figure class="bdd100k-image pipeline-output-figure">
+                                <img src="images/adc-card/schematic.png" alt="Hierarchical Schematic">
+                                <figcaption>Hierarchical schematic showing the main module, input protection sub-sheets, and the backplane connector.</figcaption>
+                            </figure>
+
+                            <li><strong>Component Placement & Routing:</strong> I designed a <strong>4-layer PCB</strong> in the PCB editor. The two internal layers were dedicated as solid GND (Ground) planes. This "sandwich" design makes it possible to connect any component instantly to the ground. The 2 layer design would require to route all traces to one common ground, which would require more traces and introduce more noise.</li>
+
+                            <li><strong>Component Placement & Routing:</strong> I placed all components, physically separating the "quiet" analog input section (input from the sensors) from the "noisy" digital components (such as the ADC chip and power regulators). All signals were then routed, using the two internal ground planes to provide a short, clean return path for accurate analog measurements.</li>
+                            
+                            <figure class="bdd100k-image pipeline-output-figure">
+                                <img src="images/adc-card/pcb-editor.png" alt="PCB Editor">
+                                <figcaption><strong>PCB Layout:</strong> Routing the 4-layer board. The internal ground planes (not visible) are key to the design.</figcaption>
+                            </figure>
+
+                            <li><strong>Design Verification:</strong> Finally, <strong>Electrical Rule Checks (ERC)</strong> and <strong>Design Rule Checks (DRC)</strong> were performed to guarantee the schematic was logically correct and the physical layout had no manufacturing errors (such as traces being too close).</li>
+
+                            <figure class="bdd100k-image pipeline-output-figure">
+                                <img src="images/adc-card/3d-model.png" alt="3D Render">
+                                <figcaption><strong>3D Model:</strong> A 3D render from KiCad, showing the final component placement and robust DIN 41612 connector for connecting to the backplane of the ground computer (large green component on the left edge).</figcaption>
+                            </figure>
+                        </ol>
+                        
+                        <h4>Impact & Results</h4>
+                        <p>This project was my first time handling the full hardware workflow. I was given a list of components and a set of requirements and was responsible for designing the complete 4-layer PCB from start to finish. The final production files (Gerbers) were then used for manufacturing the PCB and implemented into the "New Instrumentation System" (NIS) ground computer that communicates with the rocket.</p>
+                        <p>This project made it possible to develop skills in PCB design aimed at reliability and applying analog design principles to a multilayer PCB.</p>
                     `,
                 },
             ];
