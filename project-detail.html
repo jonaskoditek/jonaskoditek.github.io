@@ -811,7 +811,7 @@
                     keyInfo: {
                         role: "Electronics Engineer",
                         skills: ["Schematic Capture", "PCB Layout", "High-Density Routing", "Modular System Design"],
-                        technologies: ["KiCad (eeschema & pcbnew)", "DIN 41612 Connectors", "SamacSys Libraries"],
+                        technologies: ["KiCad", "DIN 41612 Connectors", "SamacSys Libraries"],
                         goal: "Design a robust ADC module for the 'New Instrumentation System' (NIS) ground computer, capable of capturing high-precision analog data in an electrically noisy environment.",
                         result: "Delivered the complete, production-ready KiCad project (schematic, layout, and Gerbers) for the ADC module."
                     },
@@ -826,9 +826,9 @@
                         <ol>
                             <li><strong>Schematic Capture:</strong> Initially, I imported the components into a hierarchical schematic in KiCad's schematic editor. This involved logically organizing the design into multiple sub-sheets, including dedicated sheets for the analog input protection circuits and the main backplane connector.</li>
 
-                            <figure class="bdd100k-image pipeline-output-figure">
+                            <figure class="bdd100k-image">
                                 <img src="images/adc-card/schematic.png" alt="Hierarchical Schematic">
-                                <figcaption>Hierarchical schematic showing the main module, input protection sub-sheets, and the backplane connector.</figcaption>
+                                <figcaption>Hierarchical schematic showing the main module, the input protection and the backplane connector are defined in separate sub-sheets.</figcaption>
                             </figure>
 
                             <li><strong>Component Placement & Routing:</strong> I designed a <strong>4-layer PCB</strong> in the PCB editor. The two internal layers were dedicated as solid GND (Ground) planes. This "sandwich" design makes it possible to connect any component instantly to the ground. The 2 layer design would require to route all traces to one common ground, which would require more traces and introduce more noise.</li>
@@ -837,7 +837,7 @@
                             
                             <figure class="bdd100k-image pipeline-output-figure">
                                 <img src="images/adc-card/pcb-editor.png" alt="PCB Editor">
-                                <figcaption><strong>PCB Layout:</strong> Routing the 4-layer board. The internal ground planes (not visible) are key to the design.</figcaption>
+                                <figcaption><strong>PCB Layout:</strong> The ADC chip and power regulators on the left side and the analog input section on the right side.</figcaption>
                             </figure>
 
                             <li><strong>Design Verification:</strong> Finally, <strong>Electrical Rule Checks (ERC)</strong> and <strong>Design Rule Checks (DRC)</strong> were performed to guarantee the schematic was logically correct and the physical layout had no manufacturing errors (such as traces being too close).</li>
