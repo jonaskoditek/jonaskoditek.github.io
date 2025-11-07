@@ -1,0 +1,49 @@
+/* Header and Navigation */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    background-color: var(--background-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+}
+header nav {
+    max-width: min(750px, 95vw);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+header a {
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: color 0.2s;
+}
+header li a {
+    padding: 8px 12px;
+    transition: background-color 0.2s, color 0.2s;
+}
+header li a:hover, .social-links a:hover, .theme-switch:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.05);
+    color: var(--accent-color);
+}
+[data-theme="dark"] header li a:hover, 
+[data-theme="dark"] .social-links a:hover, 
+[data-theme="dark"] .theme-switch:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.social-links { display: flex; gap: 15px; }
+.social-links a { padding: 8px; }
+header ul { display: flex; list-style: none; }
+header li { display: flex; gap: 15px; align-items: center; }
+.theme-switch {
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; padding: 8px; border-radius: 8px;
+    transition: background-color 0.2s;
+}
+.theme-switch i { width: 20px; height: 20px; color: var(--text-color); }
+.theme-switch:hover i { color: var(--accent-color); }
