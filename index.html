@@ -6,29 +6,14 @@
         <link rel="icon" href="images/favicon.png" type="image/png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/projects.css">
+        <link rel="stylesheet" href="css/footer.css">
+        
         <title>Personal Portfolio Website Jonas Koditek</title>
         <style>
-            /* Theme variables (Unchanged) */
-            :root {
-                --background-color: #ffffff;
-                --text-color: #202124;
-                --secondary-text-color: #5f6368;
-                --card-background: #f7f7f7;
-                --border-color: rgba(0, 0, 0, 0.1);
-                --button-color: #1a73e8;
-                --button-hover: #1765cc;
-                --accent-color: #1a73e8;
-            }
-            [data-theme="dark"] {
-                --background-color: #1f1f1f;
-                --text-color: #e8eaed;
-                --secondary-text-color: #9aa0a6;
-                --card-background: #282828;
-                --border-color: rgba(255, 255, 255, 0.1);
-                --button-color: #8ab4f8;
-                --button-hover: #aecbfa;
-                --accent-color: #8ab4f8;
-            }
             
             html {
                 scroll-behavior: smooth;
@@ -50,55 +35,7 @@
                 line-height: 1.6;
             }
 
-            /* Header and Navigation (Unchanged) */
-            header {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                padding: 20px 0;
-                background-color: var(--background-color);
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-                z-index: 1000;
-            }
-            header nav {
-                max-width: min(750px, 95vw);
-                margin: 0 auto;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-            }
-            header a {
-                color: var(--text-color);
-                text-decoration: none;
-                border-radius: 8px;
-                transition: color 0.2s;
-            }
-            header li a {
-                padding: 8px 12px;
-                transition: background-color 0.2s, color 0.2s;
-            }
-            header li a:hover, .social-links a:hover, .theme-switch:hover {
-                background-color: rgba(var(--accent-color-rgb), 0.05);
-                color: var(--accent-color);
-            }
-            [data-theme="dark"] header li a:hover, 
-            [data-theme="dark"] .social-links a:hover, 
-            [data-theme="dark"] .theme-switch:hover {
-                background-color: rgba(255, 255, 255, 0.1);
-            }
-            .social-links { display: flex; gap: 15px; }
-            .social-links a { padding: 8px; }
-            header ul { display: flex; list-style: none; }
-            header li { display: flex; gap: 15px; align-items: center; }
-            .theme-switch {
-                display: flex; align-items: center; justify-content: center;
-                cursor: pointer; padding: 8px; border-radius: 8px;
-                transition: background-color 0.2s;
-            }
-            .theme-switch i { width: 20px; height: 20px; color: var(--text-color); }
-            .theme-switch:hover i { color: var(--accent-color); }
+
 
             /* Main Content and Sections (Unchanged) */
             main {
@@ -157,7 +94,7 @@
                 color: var(--secondary-text-color);
             }
 
-            /* Projects Section (Unchanged) */
+            /* Projects Section */
             .project-heading {
                 display: flex;
                 justify-content: space-between;
@@ -310,7 +247,7 @@
             }
 
 
-            /* Contact Section (Unchanged) */
+            /* Contact Section */
             #contact {
                 text-align: left; 
                 padding-top: 40px;
@@ -379,7 +316,7 @@
                 border-color: var(--text-color); 
             }
 
-            /* Footer (Unchanged) */
+            /* Footer */
             footer {
                 background-color: var(--card-background);
                 padding: 30px 0;
@@ -426,7 +363,7 @@
                 color: var(--accent-color);
             }
 
-            /* Animation Keyframes (Unchanged) */
+            /* Animation Keyframes */
             @keyframes fadeInSlideUp {
                 from {
                     opacity: 0;
