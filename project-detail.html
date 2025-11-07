@@ -277,19 +277,19 @@
             /* --- Vertical Image Fix --- */
             #rover-hardware-figure {
                 /* Constrain vertical image size */
-                max-width: 450px;  /* Adjust as needed */
+                max-width: 450px; 
                 width: 100%;
                 margin: 20px auto 3.8rem auto;
-                max-height: 500px; /* Set max-height on the FIGURE */
+                max-height: 500px; 
                 overflow: visible; /* Clip the image inside */
             }
             #rover-hardware-figure img {
                 object-fit: contain; /* Ensures the whole image is visible */
                 width: auto;
                 height: auto;
-                max-height: 450px; /* Match the figure's max-height */
-                border: none; /* Removed border */
-                box-shadow: none; /* Removed box-shadow */
+                max-height: 450px; 
+                border: none; 
+                box-shadow: none; 
             }
 
 
@@ -366,7 +366,7 @@
         </footer>
 
         <script>
-            // --- Theme Switch, URL Param, Footer Year (Unchanged) ---
+            // --- Theme Switch, URL Param, Footer Year ---
             const lightAccentRgb = '26, 115, 232'; const darkAccentRgb = '138, 180, 248';
             function setInitialTheme() {
                 const savedTheme = localStorage.getItem('theme'); let initialTheme = 'light';
@@ -389,7 +389,7 @@
                     category: 'Machine Learning',
                     description: "Predicting the intention of pedestrians to step into a road from a car's front view using deep learning.",
                     tags: ['ML', 'Deep Learning', 'Computer Vision', 'Python', 'Pytorch'],
-                    image: 'images/methods-combined.png', // Main image for the hero section
+                    image: 'images/pedestrian-intent/methods-combined.png', // Main image for the hero section
                     date: 'JUN 16, 2024',
                     keyInfo: {
                         role: "Machine Learning Engineer (Bachelor Thesis)",
@@ -402,7 +402,7 @@
                         <h4>Core Challenge & Solution</h4>
                         <p>This research focused on automatically finding moments when a pedestrian steps into a road by analyzing <strong>vehicle dashcam footage</strong>. The goal was to train a classifier capable of predicting, in real-time, whether a pedestrian intends to cross. This is crucial for <strong>autonomous driving</strong> and driver-assisting systems, enabling faster braking responses either by taking control or pre-activating the braking system.</p>
                         <div class="bdd100k-image">
-                            <img src="images/bdd100k.gif" alt="BDD100K Dataset Example">
+                            <img src="images/pedestrian-intent/bdd100k.gif" alt="BDD100K Dataset Example">
                             <figcaption>Example from the BDD100K driving dataset used for obtaining training data.</figcaption>
                         </div>
 
@@ -412,26 +412,26 @@
                         <h4>Auto-labeling Pipeline</h4>
                         <p>The pipeline leveraged state-of-the-art models: <strong>object detection</strong> (to find pedestrians), <strong>object tracking</strong> (to follow them across frames), and <strong>semantic segmentation</strong> (to identify road vs. sidewalk areas). Combining these allowed the system to automatically label moments where tracked pedestrians crossed from the sidewalk segment to the road segment.</p>
                         <div class="auto-labeling-pipeline-images">
-                             <figure><img src="images/object-detection.png" alt="Object detection"><figcaption>Object Detection</figcaption></figure>
-                             <figure><img src="images/object-tracking.png" alt="Object tracking"><figcaption>Object Tracking</figcaption></figure>
-                             <figure><img src="images/semantic-segmentation.png" alt="Semantic segmentation"><figcaption>Semantic Segmentation</figcaption></figure>
-                             <figure><img src="images/methods-combined.png" alt="Methods combined"><figcaption>Combined Analysis</figcaption></figure>
+                             <figure><img src="images/pedestrian-intent/object-detection.png" alt="Object detection"><figcaption>Object Detection</figcaption></figure>
+                             <figure><img src="images/pedestrian-intent/object-tracking.png" alt="Object tracking"><figcaption>Object Tracking</figcaption></figure>
+                             <figure><img src="images/pedestrian-intent/semantic-segmentation.png" alt="Semantic segmentation"><figcaption>Semantic Segmentation</figcaption></figure>
+                             <figure><img src="images/pedestrian-intent/methods-combined.png" alt="Methods combined"><figcaption>Combined Analysis</figcaption></figure>
                         </div>
                         <p>The high-level architecture involved processing video frames through each model sequentially, combining the outputs to generate the final labels.</p>
                         <figure class="bdd100k-image">
-                            <img src="images/scheme.jpg" alt="Autolabelling pipeline diagram">
+                            <img src="images/pedestrian-intent/scheme.jpg" alt="Autolabelling pipeline diagram">
                             <figcaption>High-level architecture of the auto-labeling pipeline.</figcaption>
                         </figure>
                         <p>The GIF below demonstrates the pipeline in action, identifying pedestrians entering the roadway.</p>
                         <figure class="bdd100k-image">
-                            <img src="images/pedestrians-in-road.gif" alt="Pedestrians stepping into the road animation">
+                            <img src="images/pedestrian-intent/pedestrians-in-road.gif" alt="Pedestrians stepping into the road animation">
                             <figcaption>Auto-labeling pipeline in action. The system identifies pedestrians crossing from the sidewalk (green bounding boxes) onto the road (red bounding boxes).</figcaption>
                         </figure>
 
                         <h4>Classifier Model</h4>
                         <p>The classifier used an <strong>EfficientNet backbone</strong> for robust feature extraction from image sequences around the pedestrian, combined with a custom classifier head. Training utilized a cross-entropy loss function and SGD optimizer. <strong>Data augmentation and dropout</strong> techniques were employed to prevent overfitting.</p>
                         <figure class="bdd100k-image">
-                            <img src="images/classifier.drawio.png" alt="Classifier model architecture">
+                            <img src="images/pedestrian-intent/classifier.png" alt="Classifier model architecture">
                             <figcaption>Feedforward through the classifier model and its detailed architecture.</figcaption>
                         </figure>
 
@@ -489,7 +489,7 @@
                                     <figcaption><strong>Input A:</strong> 3D Pointcloud map (For Visualization)</figcaption>
                                 </figure>
                                 <figure class="bdd100k-image">
-                                    <img src="images/mars-rover/cropped_steepness_mapping_elevation.png" alt="2.5D Elevation Map from RTABMap">
+                                    <img src="images/mars-rover/steepness_mapping_elevation.png" alt="2.5D Elevation Map from RTABMap">
                                     <figcaption><strong>Input B: (a)</strong> 2.5D Elevation map (Pipeline Input)</figcaption>
                                 </figure>
                             </div>
@@ -502,19 +502,19 @@
                             <!-- Stage 2: Processing (Using .pipeline-grid style) -->
                             <div class="pipeline-grid">
                                 <figure class="bdd100k-image">
-                                    <img src="images/mars-rover/cropped_steepness_mapping_filled_elevation.png" alt="Gap-filled map">
+                                    <img src="images/mars-rover/steepness_mapping_filled_elevation.png" alt="Gap-filled map">
                                     <figcaption><strong>(b)</strong> The Elevation map after filling small gaps</figcaption>
                                 </figure>
                                 <figure class="bdd100k-image">
-                                    <img src="images/mars-rover/cropped_steepness_mapping_smoothed_elevation.png" alt="Smoothed map">
+                                    <img src="images/mars-rover/steepness_mapping_smoothed_elevation.png" alt="Smoothed map">
                                     <figcaption><strong>(c)</strong> The filled Elevation map after smoothing</figcaption>
                                 </figure>
                                 <figure class="bdd100k-image">
-                                    <img src="images/mars-rover/cropped_steepness_mapping_steepness.png" alt="Steepness gradient plot">
+                                    <img src="images/mars-rover/steepness_mapping_steepness.png" alt="Steepness gradient plot">
                                     <figcaption><strong>(d)</strong> The Steepness Gradient plot (Steepness as Height)</figcaption>
                                 </figure>
                                 <figure class="bdd100k-image">
-                                    <img src="images/mars-rover/cropped_steepness_mapping_steepness_color_smoothed_height.png" alt="Steepness-colored terrain">
+                                    <img src="images/mars-rover/steepness_mapping_steepness_color_smoothed_height.png" alt="Steepness-colored terrain">
                                     <figcaption><strong>(e)</strong> Steepness-colored terrain (Steepness as Color)</figcaption>
                                 </figure>
                             </div>
@@ -526,7 +526,7 @@
 
                             <!-- Stage 3: Output -->
                              <figure class="bdd100k-image pipeline-output-figure">
-                                <img src="images/mars-rover/cropped_steepness_mapping_steepness_occupancy_grid.png" alt="Final 2D Costmap">
+                                <img src="images/mars-rover/steepness_mapping_steepness_occupancy_grid.png" alt="Final 2D Costmap">
                                 <figcaption><strong>(f)</strong> Final 2D Occupancy grid (Published to Nav2)</figcaption>
                             </figure>
 
@@ -585,7 +585,7 @@
                                 <figcaption>Mia Hand attached to a mount.</figcaption>
                             </figure>
                             <figure>
-                                <img src="images/prosthetic-hand-control/hand and emg band (1) (2).jpg" alt="Hand Setup">
+                                <img src="images/prosthetic-hand-control/hand_and_emg_band.jpg" alt="Hand Setup">
                                 <figcaption>Hand setup: Myo Armband, Mia Hand mount, and Intel RealSense camera with an ArUco marker on its back.</figcaption>
                             </figure>
                             <figure>
@@ -683,7 +683,7 @@
                         <p>The core of the system is the <strong>ultrasonic sensor</strong> (HC-SR04), which measures distance using sound waves.</p>
 
                         <figure class="bdd100k-image pipeline-output-figure">
-                            <img src="images/parking-sensor/senzor.png" alt="Ultrasonic Sensor">
+                            <img src="images/parking-sensor/ultrasonic_sensor.png" alt="Ultrasonic Sensor">
                             <figcaption>The ultrasonic sensor (HC-SR04) with its transmitter (T) and receiver (R).</figcaption>
                         </figure>
 
@@ -694,7 +694,7 @@
                         <p>The division by 2 accounts for the sound wave's round trip (out and back).</p>
 
                         <figure class="bdd100k-image pipeline-output-figure">
-                            <img src="images/parking-sensor/funkce.png" alt="Ultrasonic Sensor Functionality">
+                            <img src="images/parking-sensor/ultrasonic_function.png" alt="Ultrasonic Sensor Functionality">
                             <figcaption>The principle of operation of the ultrasonic sensor.</figcaption>
                         </figure>
 
@@ -718,14 +718,14 @@
                         <p>Finally, I designed a custom enclosure in <strong>Fusion 360</strong> and <strong>3D printed</strong> it to house all the components in a clean, compact prototype.</p>
 
                         <figure class="bdd100k-image pipeline-output-figure">
-                            <img src="images/parking-sensor/parkovaci_senzor_3D_model.png" alt="3D Model">
+                            <img src="images/parking-sensor/parking_sensor_3D_model.png" alt="3D Model">
                             <figcaption>3D model of the custom-designed enclosure.</figcaption>
                         </figure>
 
                         <p>The components were assembled using a small breadboard and point-to-point wiring inside the 3D-printed case.</p>
 
                         <figure class="bdd100k-image pipeline-output-figure">
-                            <img src="images/parking-sensor/open.jpg" alt="Inside view of the parking sensor">
+                            <img src="images/parking-sensor/open_case.jpg" alt="Inside view of the parking sensor">
                             <figcaption>Inside view: ESP32, breadboard, and wiring harness.</figcaption>
                         </figure>
 
@@ -752,7 +752,7 @@
                     category: 'Computer Networking',
                     description: "Developed a custom network protocol on top of UDP to ensure reliable, in-order file transfer, implementing core features of TCP like error checking, packet sequencing, and flow control.",
                     tags: ['Networking', 'Python', 'UDP', 'Sockets', 'Protocol Design', 'Distributed Systems'],
-                    image: 'images/packet-protocol/131641-ORWREU-169.jpg',
+                    image: 'images/packet-sending-protocol/packet_sending_cover_photo.jpg',
                     date: 'JAN 10, 2024',
                     keyInfo: {
                         role: "Software Developer (Semester Project)",
@@ -772,7 +772,7 @@
                             <li><strong>Packetizing & Error Detection:</strong> The sender first breaks the source file into small, sendable chunks (packets). Each packet is prefixed with an 8-byte packet ID (for ordering the packets) and appended with a <strong>CRC32 checksum</strong> ensuring the data were not corrupted during transmission.</li>
                             
                             <figure class="bdd100k-image pipeline-output-figure">
-                                <img src="images/packet-protocol/packet2.png" alt="Packet Structure">
+                                <img src="images/packet-sending-protocol/packet.png" alt="Packet Structure">
                                 <figcaption>Custom packet structure with ID, data, and 32-bit CRC checksum.</figcaption>
                             </figure>
 
@@ -783,7 +783,7 @@
                             <li><strong>Flow Control (Sliding Window):</strong> Instead of sending one packet and waiting for confirmation before sending the next (like 'stop-and-wait'), the sender can send several packets at once, keeping a "window" of active packets. As the receiver confirms it got a packet, the sender "slides" its window forward, immediately sending a new packet to keep the data flowing without unnecessary pauses. This allows for continuous transmission and much faster file transfers.</li>
 
                             <figure class="bdd100k-image pipeline-output-figure">
-                                <img src="images/packet-protocol/selectiverepeatlostframe.png" alt="Sliding Window in action">
+                                <img src="images/packet-sending-protocol/selectiverepeatlostframe.png" alt="Sliding Window in action">
                                 <figcaption>Sliding window approach in action. The packet number 2 is lost and then re-sent.</figcaption>
                             </figure>
                             <!-- https://reaksmeylim.github.io/selectiverepeat.html -->
@@ -791,7 +791,7 @@
                             <li><strong>Final File Integrity:</strong> To ensure the transferred file is 100% identical to the original, both the sender and receiver compute MD5 hashes of their respective files and compare the two to guarantee the received file is identical to the sent one.</li>
 
                             <figure class="bdd100k-image pipeline-output-figure">
-                                <img src="images/packet-protocol/MD5.png" alt="MD5 Hash Process">
+                                <img src="images/packet-sending-protocol/MD5.png" alt="MD5 Hash Process">
                                 <figcaption>MD5 Hash process, taking in stream of bytes (text or image) and producing a 32 character hash value.</figcaption>
                             </figure>
                         </ol>
@@ -801,12 +801,12 @@
                     `,
                 },
                 {
-                    id: 'pcb-adc-design',
+                    id: 'adc-pcb-design',
                     title: '4-Layer ADC Module for Rocketry Ground Station',
                     category: 'Electronics & PCB Design',
                     description: "Designed a 4-layer, high-precision analog-to-digital converter (ADC) module for a ground computer used in rocket telemetry.",
                     tags: ['PCB Design', 'KiCad', 'Electronics', 'Schematic Capture', 'Signal Integrity', 'Aerospace'],
-                    image: 'images/adc-card/3d-model.png', 
+                    image: 'images/adc-pcb-design/3d-model.png', 
                     date: 'FEB 23, 2024',
                     keyInfo: {
                         role: "Electronics Engineer",
@@ -827,7 +827,7 @@
                             <li><strong>Schematic Capture:</strong> Initially, I imported the components into a hierarchical schematic in KiCad's schematic editor. This involved logically organizing the design into multiple sub-sheets, including dedicated sheets for the analog input protection circuits and the main backplane connector.</li>
 
                             <figure class="bdd100k-image">
-                                <img src="images/adc-card/schematic.png" alt="Hierarchical Schematic">
+                                <img src="images/adc-pcb-design/schematic.png" alt="Hierarchical Schematic">
                                 <figcaption>Hierarchical schematic showing the main module, the input protection and the backplane connector are defined in separate sub-sheets.</figcaption>
                             </figure>
 
@@ -836,14 +836,14 @@
                             <li><strong>Component Placement & Routing:</strong> I placed all components, physically separating the "quiet" analog input section (input from the sensors) from the "noisy" digital components (such as the ADC chip and power regulators). All signals were then routed, using the two internal ground planes to provide a short, clean return path for accurate analog measurements.</li>
                             
                             <figure class="bdd100k-image pipeline-output-figure">
-                                <img src="images/adc-card/pcb-editor.png" alt="PCB Editor">
+                                <img src="images/adc-pcb-design/pcb-editor.png" alt="PCB Editor">
                                 <figcaption><strong>PCB Layout:</strong> The ADC chip and power regulators on the left side and the analog input section on the right side.</figcaption>
                             </figure>
 
                             <li><strong>Design Verification:</strong> Finally, <strong>Electrical Rule Checks (ERC)</strong> and <strong>Design Rule Checks (DRC)</strong> were performed to guarantee the schematic was logically correct and the physical layout had no manufacturing errors (such as traces being too close).</li>
 
                             <figure class="bdd100k-image pipeline-output-figure">
-                                <img src="images/adc-card/3d-model.png" alt="3D Render">
+                                <img src="images/adc-pcb-design/3d-model.png" alt="3D Render">
                                 <figcaption><strong>3D Model:</strong> A 3D render from KiCad, showing the final component placement and robust DIN 41612 connector for connecting to the backplane of the ground computer (large green component on the left edge).</figcaption>
                             </figure>
                         </ol>

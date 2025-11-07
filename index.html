@@ -438,7 +438,7 @@
                 }
             }
 
-            /* Section Animations (Unchanged) */
+            /* Section Animations */
             #about,
             #projects,
             #contact {
@@ -456,7 +456,7 @@
             }
 
 
-            /* Responsive adjustments (Unchanged) */
+            /* Responsive adjustments */
             @media (max-width: 600px) {
                 #about { flex-direction: column; }
                 .profile-photo { 
@@ -483,7 +483,10 @@
                 .project-title { font-size: 20px; }
 
                 .filter-buttons { gap: 8px; }
-                .filter-button { padding: 6px 12px; font-size: 13px; }
+                .filter-button { 
+                    padding: 6px 12px; 
+                    font-size: 13px; 
+                }
 
                 .contact-cta-wrapper {
                     flex-direction: column;
@@ -602,7 +605,7 @@
         </footer>
 
         <script>
-            // --- Theme Switch Logic (Unchanged) ---
+            // --- Theme Switch Logic ---
             const lightAccentRgb = '26, 115, 232'; 
             const darkAccentRgb = '138, 180, 248';
             function setInitialTheme() {
@@ -633,7 +636,7 @@
                     : `<i class="fa-solid fa-moon"></i>`;
             }
 
-            // --- Utility for reading URL parameter (Unchanged) ---
+            // --- Utility for reading URL parameter ---
             function getUrlParameter(name) {
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
                 const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -641,7 +644,7 @@
                 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
             };
             
-            // --- Copy Email Functionality (Unchanged) ---
+            // --- Copy Email Functionality ---
             function copyEmailToClipboard(email) {
                 const btn = document.getElementById('copyEmailBtn');
                 const originalText = 'Copy Email';
@@ -672,7 +675,7 @@
                 }
             }
             
-            // --- Project Data (Unchanged) ---
+            // --- Project Data ---
             let projectsData = [
                 {
                     id: 'pedestrian-intent',
@@ -680,7 +683,7 @@
                     category: 'Machine Learning',
                     description: "Developed a deep learning model for predicting the intention of pedestrians to step into a road from a car's front view. ",
                     tags: ['Machine Learning', 'Deep Learning', 'Computer Vision', 'Python', 'Pytorch', 'OpenCV', 'Git', 'Data Handling', 'Model Evaluation'],
-                    image: 'images/walker.png',
+                    image: 'images/pedestrian-intent/walker.png',
                 },
                 {
                     id: 'mars-rover',
@@ -704,7 +707,7 @@
                     category: 'Electronics',
                     description: "Developed an ultrasonic parking sensor system with LED display and speaker.",
                     tags: ['Electronics', 'Embedded Systems', 'C', 'Microcontrollers', '3D Printing', 'Circuit Design'],
-                    image: 'images/parking-sensor/parkovaci_senzor_3D_model.png',
+                    image: 'images/parking-sensor/parking_sensor_3D_model.png',
                 },
                 {
                     id: 'packet-sending-protocol',
@@ -712,19 +715,19 @@
                     category: 'Software Engineering',
                     description: "Developed a custom network protocol on top of UDP to ensure reliable, in-order file transfer",
                     tags: ['Networks', 'Python', 'Socket Programming', 'UDP', 'TCP', 'Protocol Design', 'CRC'],
-                    image: 'images/packet-protocol/131641-ORWREU-169.jpg',
+                    image: 'images/packet-sending-protocol/packet_sending_cover_photo.jpg',
                 },
                 {
-                    id: 'pcb-adc-design',
+                    id: 'adc-pcb-design',
                     title: 'PCB Design of ADC card',
                     category: 'Electronics',
                     description: "Designed a PCB for an ADC card, focusing on signal integrity and layout optimization.",
                     tags: ['Electronics', 'PCB Design', 'KiCad', 'Signal Integrity', 'Layout Design'],
-                    image: 'images/adc-card/3d-model.png',
+                    image: 'images/adc-pcb-design/3d-model.png',
                 },
             ];
 
-            // --- Function to sort projects (Unchanged) ---
+            // --- Function to sort projects ---
             function sortProjectsByFocus(focusCategory) {
                 if (!focusCategory || focusCategory === 'All') return;
                 projectsData.sort((a, b) => {
@@ -736,7 +739,7 @@
                 });
             }
 
-            // --- MODIFIED: renderProjects function ---
+            // --- renderProjects function ---
             function renderProjects(filterCategory = 'All') {
                 const container = document.getElementById('projects-container');
                 container.innerHTML = ''; 
@@ -774,7 +777,7 @@
                 });
             }
 
-            // --- renderFilters (Unchanged) ---
+            // --- renderFilters ---
             function renderFilters(initialFilter = 'All') {
                 const container = document.getElementById('filter-container');
                 const categories = new Set(projectsData.map(p => p.category));
@@ -805,7 +808,7 @@
                 }
             }
             
-            // --- setFooterYear (Unchanged) ---
+            // --- setFooterYear ---
             function setFooterYear() {
                 const yearSpan = document.getElementById('currentYear');
                 if (yearSpan) {
@@ -813,7 +816,7 @@
                 }
             }
             
-            // --- Initialization (Unchanged) ---
+            // --- Initialization ---
             document.addEventListener('DOMContentLoaded', () => {
                 setInitialTheme();
                 setFooterYear(); 
