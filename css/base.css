@@ -38,21 +38,30 @@ section{
         width: 100px; 
         height: auto;
     }
-    .profile-titles { text-align: center; }
+    .profile-titles { text-align: left; }
+
     .about-text { margin-top: 10px; }
     
     .project-summary { 
-        flex-direction: column; 
-        align-items: flex-start;
-        padding: 20px;
+        flex-direction: column !important; 
+        align-items: stretch;
+        padding: 16px;
+        gap: 16px;
     }
     .project-image-container { 
         margin: 0 0 15px 0; 
         width: 100%;
-        height: 160px;
+        height: 180px; /* Fixed height */
+        order: -1; /* Image first */
     } 
+
+    .project-info {
+        width: 100%; 
+        order: 1; /* Text content second */
+    }
     
     h2 { font-size: 26px; margin-top: 0; }
+
     .project-title { font-size: 20px; }
 
     .filter-buttons { gap: 8px; }

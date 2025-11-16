@@ -47,3 +47,34 @@ header li { display: flex; gap: 15px; align-items: center; }
 }
 .theme-switch i { width: 20px; height: 20px; color: var(--text-color); }
 .theme-switch:hover i { color: var(--accent-color); }
+
+/* Responsive header adjustments */
+@media (max-width: 600px) {
+    header nav {
+        padding: 0 10px;
+    }
+    
+    .social-links {
+        gap: 10px;
+    }
+    
+    header li a {
+        padding: 6px 8px;
+        font-size: 14px;
+    }
+    
+    header li {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Hide navigation text links on very small screens, keep only theme switch */
+    header li a[href*="#"] {
+        display: none;
+    }
+    
+    .social-links a {
+        padding: 6px;
+    }
+}
